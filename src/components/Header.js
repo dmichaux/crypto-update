@@ -1,11 +1,13 @@
 import React from 'react';
 
+import NavBar from './NavBar'
+
 const Header = () => {
 	return (
-		<React.Fragment>
-			<div>Crypto Update</div>
-			{/* <NavBar /> */}
-		</React.Fragment>
+		<header>
+			<h1>Crypto Update</h1>
+			<NavBar />
+		</header>
 	);
 }
 
