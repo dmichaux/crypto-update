@@ -16,7 +16,7 @@ class ContentPane extends React.Component {
 
 		switch(tabNum) {
 			case 1:
-				tab = <CurrencyContent name="Value" /* {...this.state} */ />;
+				tab = <CurrencyContent name="Value" currencies={["USD", "EUR", "JPY", "CNY"]} />;
 				break;
 			case 2:
 				tab = <CurrencyContent name="News" /* {...this.state} */ />;
