@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Currency from './Currency';
+
 class CurrencyContent extends React.Component {
 	// props: name, currencies, frequency
 	// if (props.name == "Value") {
@@ -10,11 +12,11 @@ class CurrencyContent extends React.Component {
 	// Will mount with setInterval() to fetch content from APIs
 	// clearInterval when dismount
 
-	const currencyElements = this.props.currencies.map( (currency) => {
-		return {/* <Currency name={currency} /> */}
+	render() {
+		const currencyElements = this.props.currencies.map( (currency) => {
+			<Currency key={currency} name={currency} />
 		});
 
-	render() {
 		return (
 			<div>
 				{currencyElements}
