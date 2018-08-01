@@ -1,9 +1,10 @@
 import React from 'react';
 
+import SelectBar from './SelectBar';
 
 class ContentPane extends React.Component {
 	render () {
-		const {tab} = props
+		const {tab} = this.props
 		let tabType;
 
 		switch(tab) {
@@ -21,8 +22,8 @@ class ContentPane extends React.Component {
 		return (
 			<main>
 				<div className="options-bar">
+					<SelectBar />
 					{/*
-						<SelectBar />
 						<FrequencyBar />
 					*/}
 				</div>
