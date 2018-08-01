@@ -4,13 +4,13 @@ import Header from './Header';
 import ContentPane from './ContentPane';
 
 class App extends React.Component {
-	// Will hold state: {tab: }
+	// Will hold state: {tabNum: }
 
 	render() {
 		return (
 			<React.Fragment>
 				<Header />
-				<ContentPane tab={1} />
+				<ContentPane tabNum={1} />
 			</React.Fragment>
 		);
 	}
