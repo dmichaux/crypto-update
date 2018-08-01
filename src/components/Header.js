@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Banner = () => {
+const Header = () => {
 	return (
 		<React.Fragment>
 			<div>Crypto Update</div>
@@ -9,4 +9,4 @@ const Banner = () => {
 	);
 }
 
-export default Banner;
+export default Header;
