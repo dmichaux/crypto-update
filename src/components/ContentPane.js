@@ -1,22 +1,28 @@
 import React from 'react';
 
 import SelectBar from './SelectBar';
-import FrequencyBar from './FrequencyBar'
+import FrequencyBar from './FrequencyBar';
+import CurrencyContent from './CurrencyContent'
 
 class ContentPane extends React.Component {
-	render () {
-		const {tab} = this.props
-		let tabType;
+	// Will hold state: {
+	// 	currencies: Array(4),
+	// 	frequency: x000,
+	// }
 
-		switch(tab) {
+	render () {
+		const {tabNum} = this.props;
+		let tab;
+
+		switch(tabNum) {
 			case 1:
-				tabType = "value";
+				tab = <CurrencyContent name="Value" /* {...this.state} */ />;
 				break;
 			case 2:
-				tabType = "news";
+				tab = <CurrencyContent name="News" /* {...this.state} */ />;
 				break;
 			case 3:
-				tabType = "about";
+				{/* tab = <AboutContent />; */}
 				break;
 		}
 
@@ -26,7 +32,7 @@ class ContentPane extends React.Component {
 					<SelectBar />
 					<FrequencyBar />
 				</div>
-				{/* <Tab type={tabType} /> */}
+				{tab}
 			</main>
 		);
 	}
