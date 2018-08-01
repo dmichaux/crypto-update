@@ -1,9 +1,14 @@
-import React from 'react'
+import React from 'react';
+
+import Banner from './Banner';
 
 class App extends React.Component {
 	render() {
 		return (
-			<div>App div!</div>
+			<React.Fragment>
+				<Banner />
+			{/* <ContentPane /> */}
+			</React.Fragment>
 		);
 	}
 }
