@@ -1,6 +1,7 @@
 import React from 'react';
 
 import SelectBar from './SelectBar';
+import FrequencyBar from './FrequencyBar'
 
 class ContentPane extends React.Component {
 	render () {
@@ -23,9 +24,7 @@ class ContentPane extends React.Component {
 			<main>
 				<div className="options-bar">
 					<SelectBar />
-					{/*
-						<FrequencyBar />
-					*/}
+					<FrequencyBar />
 				</div>
 				{/* <Tab type={tabType} /> */}
 			</main>
