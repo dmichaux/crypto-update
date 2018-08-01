@@ -9,8 +9,6 @@ class App extends React.Component {
 		this.state = { tabNum: 1 };
 	}
 
-	// Will hold state: {tabNum: }
-
 	render() {
 		return (
 			<React.Fragment>
