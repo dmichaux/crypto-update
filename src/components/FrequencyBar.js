@@ -1,10 +1,6 @@
 import React from 'react';
 
 class FrequencyBar extends React.Component {
-	// Send selected frequency to ContentPane's state
-	// Replace radio with tabs?
-	// Abstract to components?
-
 	constructor(props) {
 		super(props);
 		this.handleClick = this.handleClick.bind(this);
@@ -14,7 +10,7 @@ class FrequencyBar extends React.Component {
 		const tabs = document.getElementsByClassName('frequency-tab');
 		
 		this.moveSelectedClass(tabs, event.target)
-		// this.props.onTabChange(event.target.value)
+		this.props.onFrequencyChange(Number(event.target.value))
 	}
 
 	moveSelectedClass(elements, target) {
@@ -26,11 +22,11 @@ class FrequencyBar extends React.Component {
 		return (
 			<div>
 				update every:
-				<button type="button" value="3" className="frequency-tab"
+				<button type="button" value="3000" className="frequency-tab"
 								onClick={this.handleClick}>3s</button>
-				<button type="button" value="15" className="frequency-tab"
+				<button type="button" value="15000" className="frequency-tab"
 								onClick={this.handleClick}>15s</button>
-				<button type="button" value="30" className="frequency-tab"
+				<button type="button" value="30000" className="frequency-tab"
 								onClick={this.handleClick}>30s</button>
 			</div>
 		);

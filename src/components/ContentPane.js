@@ -8,10 +8,15 @@ import AboutContent from './AboutContent';
 class ContentPane extends React.Component {
 	constructor (props) {
 		super(props);
+		this.handleFrequencyChange = this.handleFrequencyChange.bind(this);
 		this.state = {
 			currencies: ["USD", "EUR", "JPY", "CNY"],
 			frequency: 	3000,
 		};
+	}
+
+	handleFrequencyChange(frequency) {
+		this.setState({frequency})
 	}
 
 	render () {
@@ -34,7 +39,7 @@ class ContentPane extends React.Component {
 			<main>
 				<div className="options-bar">
 					<SelectBar />
-					<FrequencyBar />
+					<FrequencyBar onFrequencyChange={this.handleFrequencyChange} />
 				</div>
 				{tab}
 			</main>
