@@ -2,7 +2,8 @@ import React from 'react';
 
 import SelectBar from './SelectBar';
 import FrequencyBar from './FrequencyBar';
-import CurrencyContent from './CurrencyContent'
+import CurrencyContent from './CurrencyContent';
+import AboutContent from './AboutContent';
 
 class ContentPane extends React.Component {
 	constructor (props) {
@@ -25,7 +26,7 @@ class ContentPane extends React.Component {
 				tab = <CurrencyContent name="News" {...this.state} />;
 				break;
 			case 3:
-				{/* tab = <AboutContent />; */}
+				tab = <AboutContent />;
 				break;
 		}
 
