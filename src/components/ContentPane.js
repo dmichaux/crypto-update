@@ -19,13 +19,13 @@ class ContentPane extends React.Component {
 		let tab;
 
 		switch(tabNum) {
-			case 1:
+			case "1":
 				tab = <CurrencyContent name="Value" {...this.state} />;
 				break;
-			case 2:
+			case "2":
 				tab = <CurrencyContent name="News" {...this.state} />;
 				break;
-			case 3:
+			case "3":
 				tab = <AboutContent />;
 				break;
 		}

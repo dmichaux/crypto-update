@@ -2,11 +2,11 @@ import React from 'react';
 
 import NavBar from './NavBar'
 
-const Header = () => {
+const Header = (props) => {
 	return (
 		<header>
 			<h1>Crypto Update</h1>
-			<NavBar />
+			<NavBar onTabChange={props.onTabChange} />
 		</header>
 	);
 }

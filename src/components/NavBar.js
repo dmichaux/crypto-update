@@ -1,12 +1,32 @@
 import React from 'react';
 
 class NavBar extends React.Component {
+	constructor(props) {
+		super(props);
+		this.handleClick = this.handleClick.bind(this)
+	}
+	
+	handleClick(event) {
+		const buttons = document.getElementsByTagName('button');
+		
+		this.moveSelectedClass(buttons, event.target)
+		this.props.onTabChange(event.target.value)
+	}
+
+	moveSelectedClass(elements, target) {
+		for (let element of elements) {element.classList.remove('selected-tab')}
+		target.classList.add('selected-tab')
+	}
+
 	render () {
 		return (
 			<nav>
-				<button type="button">Value</button>
-				<button type="button">News</button>
-				<button type="button">About</button>
+				<button type="button" value="1"
+								onClick={this.handleClick}>Value</button>
+				<button type="button" value="2"
+								onClick={this.handleClick}>News</button>
+				<button type="button" value="3"
+								onClick={this.handleClick}>About</button>
 			</nav>
 		);
 	}
