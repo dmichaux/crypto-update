@@ -15,7 +15,7 @@ class SelectBar extends React.Component {
 	}
 
 	// handleFocus() {
-		// Fetch to API for currency list
+		// Fetch to API for currency list master (if current state is empty)
 	// }
 
 	handleChange(event) {
@@ -23,14 +23,23 @@ class SelectBar extends React.Component {
 	}
 
 	render () {
+		const masterList = this.state.currencyListMaster;
+		const searchInput = this.state.searchInput;
+		
+		const filteredList = masterList.filter( (item) => {
+			const regexp = new RegExp(searchInput, "i");
+			return regexp.test(item)
+		});
+
 		return (
 			<React.Fragment>
 				<input type="text" placeholder="Choose a currency"
-								value={this.state.searchInput}
+								value={searchInput}
 								onChange={this.handleChange} />
 				<div>
-						masterList: {this.state.currencyListMaster}<br />
-						searchInput: {this.state.searchInput}
+						masterList: {masterList.join(' ')}<br />
+						searchInput: {searchInput}<br />
+						filteredList: {filteredList.join(' ')}
 				</div>
 			</React.Fragment>
 		);
