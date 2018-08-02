@@ -3,13 +3,13 @@ import React from 'react';
 class NavBar extends React.Component {
 	constructor(props) {
 		super(props);
-		this.handleClick = this.handleClick.bind(this)
+		this.handleClick = this.handleClick.bind(this);
 	}
 	
 	handleClick(event) {
-		const buttons = document.getElementsByTagName('button');
+		const tabs = document.getElementsByClassName('nav-tab');
 		
-		this.moveSelectedClass(buttons, event.target)
+		this.moveSelectedClass(tabs, event.target)
 		this.props.onTabChange(event.target.value)
 	}
 
@@ -21,11 +21,11 @@ class NavBar extends React.Component {
 	render () {
 		return (
 			<nav>
-				<button type="button" value="1"
+				<button type="button" value="1" className="nav-tab"
 								onClick={this.handleClick}>Value</button>
-				<button type="button" value="2"
+				<button type="button" value="2" className="nav-tab"
 								onClick={this.handleClick}>News</button>
-				<button type="button" value="3"
+				<button type="button" value="3" className="nav-tab"
 								onClick={this.handleClick}>About</button>
 			</nav>
 		);
