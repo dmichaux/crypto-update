@@ -7,7 +7,7 @@ class App extends React.Component {
 	constructor () {
 		super();
 		this.handleTabChange = this.handleTabChange.bind(this);
-		this.state = { tabNum: "1" };
+		this.state = { tabNum: 1 };
 	}
 
 	handleTabChange(tabNum) {

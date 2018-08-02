@@ -10,7 +10,7 @@ class NavBar extends React.Component {
 		const tabs = document.getElementsByClassName('nav-tab');
 		
 		this.moveSelectedClass(tabs, event.target)
-		this.props.onTabChange(event.target.value)
+		this.props.onTabChange(Number(event.target.value))
 	}
 
 	moveSelectedClass(elements, target) {
