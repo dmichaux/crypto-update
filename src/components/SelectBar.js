@@ -1,5 +1,7 @@
 import React from 'react';
 
+import SearchList from './SearchList'
+
 class SelectBar extends React.Component {
 	// Render div of filtered currency options
 	// Send selected currencies to ContentPane's state
@@ -8,7 +10,7 @@ class SelectBar extends React.Component {
 		super(props);
 		this.handleFocus = this.handleFocus.bind(this);
 		this.handleChange = this.handleChange.bind(this);
-		this.handleClick = this.handleClick.bind(this);
+		this.handleDoneClick = this.handleDoneClick.bind(this);
 		this.state = {
 			currencyListMaster: ["BTC", "RPL", "LTC", "LLL"],
 			searchInput: '',
@@ -25,7 +27,7 @@ class SelectBar extends React.Component {
 		this.setState({searchInput: event.target.value});
 	}
 
-	handleClick() {
+	handleDoneClick() {
 		this.setState({searching: false});
 	}
 
@@ -37,7 +39,8 @@ class SelectBar extends React.Component {
 		return filteredList
 	}
 
-	render () {
+	render() {
+		const {handleCurrencyAdd} = this.props;
 		const {currencyListMaster, searchInput, searching} = this.state;
 		const filteredList = this.filterList(currencyListMaster, searchInput);
 
@@ -47,13 +50,10 @@ class SelectBar extends React.Component {
 								value={searchInput}
 								onFocus={this.handleFocus}
 								onChange={this.handleChange} />
-				{/* TODO: abstract list div into component */}
-				{ searching && 
-					<div>
-						masterList: {currencyListMaster.join(' ')}<br />
-						filteredList: {filteredList.join(' ')}<br />
-						<button type="button" onClick={this.handleClick}>Done</button>
-				</div> }
+				{searching && 
+					<SearchList filteredList={filteredList}
+											onCurrencyAdd={handleCurrencyAdd}
+											handleDoneClick={this.handleDoneClick} />}
 			</React.Fragment>
 		);
 	}

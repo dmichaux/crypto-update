@@ -9,14 +9,21 @@ class ContentPane extends React.Component {
 	constructor (props) {
 		super(props);
 		this.handleFrequencyChange = this.handleFrequencyChange.bind(this);
+		this.handleCurrencyAdd = this.handleCurrencyAdd.bind(this);
 		this.state = {
-			currencies: ["USD", "EUR", "JPY", "CNY"],
+			currencies: ["USD", "EUR", "JPY"],
 			frequency: 	3000,
 		};
 	}
 
 	handleFrequencyChange(frequency) {
 		this.setState({frequency})
+	}
+
+	handleCurrencyAdd(currency) {
+		const currenciesCopy = this.state.currencies
+		currenciesCopy.push(currency)
+		this.setState({currencies: currenciesCopy})
 	}
 
 	render () {
@@ -38,7 +45,7 @@ class ContentPane extends React.Component {
 		return (
 			<main>
 				<div className="options-bar">
-					<SelectBar />
+					<SelectBar handleCurrencyAdd={this.handleCurrencyAdd} />
 					<FrequencyBar onFrequencyChange={this.handleFrequencyChange} />
 				</div>
 				{tab}
