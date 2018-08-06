@@ -32,15 +32,16 @@ class SelectBar extends React.Component {
 	}
 
 	filterList(list, filterTerm) {
+		const selected = this.props.selectedCurrencies;
+
 		const filteredList = list.filter( (item) => {
 			let regexp = new RegExp(filterTerm, "i");
-			return regexp.test(item)
+			return (regexp.test(item) && !selected.includes(item))
 		});
 		return filteredList
 	}
 
 	render() {
-		const {handleCurrencyAdd} = this.props;
 		const {currencyListMaster, searchInput, searching} = this.state;
 		const filteredList = this.filterList(currencyListMaster, searchInput);
 
@@ -52,7 +53,6 @@ class SelectBar extends React.Component {
 								onChange={this.handleChange} />
 				{searching && 
 					<SearchList filteredList={filteredList}
-											onCurrencyAdd={handleCurrencyAdd}
 											handleDoneClick={this.handleDoneClick} />}
 			</React.Fragment>
 		);

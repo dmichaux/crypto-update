@@ -13,7 +13,7 @@ class CurrencyContent extends React.Component {
 	// clearInterval when dismount
 
 	render() {
-		const currencies = this.props.currencies;
+		const currencies = this.props.selectedCurrencies;
 
 		const currencyElements = currencies.map( (currency) =>
 			<Currency key={currency} name={currency} />

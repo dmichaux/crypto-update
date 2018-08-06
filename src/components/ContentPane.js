@@ -1,17 +1,20 @@
 import React from 'react';
 
+import CurrencyContext from '../contexts/CurrencyContext';
+
 import SelectBar from './SelectBar';
 import FrequencyBar from './FrequencyBar';
 import CurrencyContent from './CurrencyContent';
 import AboutContent from './AboutContent';
 
+
 class ContentPane extends React.Component {
 	constructor (props) {
 		super(props);
 		this.handleFrequencyChange = this.handleFrequencyChange.bind(this);
-		this.handleCurrencyAdd = this.handleCurrencyAdd.bind(this);
+		this.handleCurrencyChange = this.handleCurrencyChange.bind(this);
 		this.state = {
-			currencies: ["USD", "EUR", "JPY"],
+			selectedCurrencies: [],
 			frequency: 	3000,
 		};
 	}
@@ -20,15 +23,39 @@ class ContentPane extends React.Component {
 		this.setState({frequency})
 	}
 
-	handleCurrencyAdd(currency) {
-		const currenciesCopy = this.state.currencies
+	handleCurrencyChange(event) {
+		const currency = event.target;
+		currency.classList.toggle('selected-currency')
+		
+		if (currency.classList.contains('selected-currency')) {
+			this.currencySelect(currency.value)
+		} else {
+			this.currencyDeselect(currency.value)
+		}
+	}
+
+	currencySelect(currency) {
+		const currenciesCopy = this.state.selectedCurrencies
 		currenciesCopy.push(currency)
-		this.setState({currencies: currenciesCopy})
+		this.setState({selectedCurrencies: currenciesCopy})
+	}
+
+	currencyDeselect(currency) {
+		const filtered = this.state.selectedCurrencies.filter( (item) => {
+			return (item !== currency)
+		});
+		this.setState({selectedCurrencies: filtered})
 	}
 
 	render () {
+		const selectedCurrencies = this.state.selectedCurrencies;
 		const {tabNum} = this.props;
 		let tab;
+
+		const currencyContext = {
+			selectedCurrencies: selectedCurrencies,
+			handleCurrencyChange: this.handleCurrencyChange
+		};
 
 		switch(tabNum) {
 			case 1:
@@ -42,13 +69,16 @@ class ContentPane extends React.Component {
 				break;
 		}
 
+		{/* for SelectBar: handleCurrencyChange={this.handleCurrencyChange} */}
 		return (
 			<main>
-				<div className="options-bar">
-					<SelectBar handleCurrencyAdd={this.handleCurrencyAdd} />
-					<FrequencyBar onFrequencyChange={this.handleFrequencyChange} />
-				</div>
-				{tab}
+				<CurrencyContext.Provider value={currencyContext}>
+					<div className="options-bar">
+						<SelectBar selectedCurrencies={selectedCurrencies} />
+						<FrequencyBar onFrequencyChange={this.handleFrequencyChange} />
+					</div>
+					{tab}
+				</CurrencyContext.Provider>
 			</main>
 		);
 	}
