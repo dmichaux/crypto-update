@@ -21,7 +21,7 @@ class NavBar extends React.Component {
 	render () {
 		return (
 			<nav>
-				<button type="button" value="1" className="nav-tab"
+				<button type="button" value="1" className="nav-tab selected-tab"
 								onClick={this.handleClick}>Value</button>
 				<button type="button" value="2" className="nav-tab"
 								onClick={this.handleClick}>News</button>
