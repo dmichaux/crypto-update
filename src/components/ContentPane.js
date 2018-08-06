@@ -73,10 +73,11 @@ class ContentPane extends React.Component {
 		return (
 			<main>
 				<CurrencyContext.Provider value={currencyContext}>
-					<div className="options-bar">
-						<SelectBar selectedCurrencies={selectedCurrencies} />
-						<FrequencyBar onFrequencyChange={this.handleFrequencyChange} />
-					</div>
+					{ (tabNum !== 3) &&
+						<div className="options-bar">
+							<SelectBar selectedCurrencies={selectedCurrencies} />
+							<FrequencyBar onFrequencyChange={this.handleFrequencyChange} />
+						</div>}
 					{tab}
 				</CurrencyContext.Provider>
 			</main>
