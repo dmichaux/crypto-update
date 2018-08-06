@@ -3,9 +3,6 @@ import React from 'react';
 import SearchList from './SearchList'
 
 class SelectBar extends React.Component {
-	// Render div of filtered currency options
-	// Send selected currencies to ContentPane's state
-
 	constructor(props) {
 		super(props);
 		this.handleFocus = this.handleFocus.bind(this);
