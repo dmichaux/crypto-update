@@ -69,7 +69,6 @@ class ContentPane extends React.Component {
 				break;
 		}
 
-		{/* for SelectBar: handleCurrencyChange={this.handleCurrencyChange} */}
 		return (
 			<main>
 				<CurrencyContext.Provider value={currencyContext}>
