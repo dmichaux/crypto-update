@@ -24,13 +24,15 @@ class ContentPane extends React.Component {
 	}
 
 	handleCurrencyChange(event) {
-		const currency = event.target;
-		currency.classList.toggle('selected-currency')
+		const button = event.target;
+		const currency = JSON.parse(button.value)
 		
-		if (currency.classList.contains('selected-currency')) {
-			this.currencySelect(currency.value)
+		button.classList.toggle('selected-currency')
+
+		if (button.classList.contains('selected-currency')) {
+			this.currencySelect(currency)
 		} else {
-			this.currencyDeselect(currency.value)
+			this.currencyDeselect(currency)
 		}
 	}
 
@@ -42,7 +44,7 @@ class ContentPane extends React.Component {
 
 	currencyDeselect(currency) {
 		const filtered = this.state.selectedCurrencies.filter( (item) => {
-			return (item !== currency)
+			return (item.id !== currency.id)
 		});
 		this.setState({selectedCurrencies: filtered})
 	}
@@ -57,17 +59,18 @@ class ContentPane extends React.Component {
 			handleCurrencyChange: this.handleCurrencyChange
 		};
 
-		switch(tabNum) {
-			case 1:
-				tab = <CurrencyContent name="Value" {...this.state} />;
-				break;
-			case 2:
-				tab = <CurrencyContent name="News" {...this.state} />;
-				break;
-			case 3:
-				tab = <AboutContent />;
-				break;
-		}
+		tab = <div>Switching off content tabs for now :)</div>
+		// switch(tabNum) {
+		// 	case 1:
+		// 		tab = <CurrencyContent name="Value" {...this.state} />;
+		// 		break;
+		// 	case 2:
+		// 		tab = <CurrencyContent name="News" {...this.state} />;
+		// 		break;
+		// 	case 3:
+		// 		tab = <AboutContent />;
+		// 		break;
+		// }
 
 		return (
 			<main>

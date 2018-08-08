@@ -4,11 +4,12 @@ import CurrencyContext from '../contexts/CurrencyContext';
 
 class SearchList extends React.Component {
 
+	// Takes array of objects, returns array of button elements
 	listToButtons(list, handler, addedClass="") {
 		const buttons = list.map( (item) => {
-			return ( <button key={item} type="button"
-												value={item} className={addedClass}
-												onClick={handler}>{item}</button> )
+			return ( <button key={item.id} type="button"
+												value={JSON.stringify(item)} className={addedClass}
+												onClick={handler}>{item.name}</button> )
 		});
 		return buttons
 	}
