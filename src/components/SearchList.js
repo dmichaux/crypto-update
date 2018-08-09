@@ -27,8 +27,8 @@ class SearchList extends React.Component {
 							<React.Fragment>
 								<div>Selected: {this.listToButtons(selected, handler, 'selected-currency')}</div>
 								<div>
-									Filtered: {this.listToButtons(filteredList, handler)}
 									<button type="button" onClick={handleDoneClick}>Done</button>
+									Filtered: {this.listToButtons(filteredList, handler)}
 								</div>
 							</React.Fragment>
 						)}}
