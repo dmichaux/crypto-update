@@ -1,5 +1,6 @@
 import React from 'react';
 
+import CoinAPI from '../SDKs/CoinAPI';
 import CurrencyContext from '../contexts/CurrencyContext';
 
 import SelectBar from './SelectBar';
@@ -11,16 +12,25 @@ import AboutContent from './AboutContent';
 class ContentPane extends React.Component {
 	constructor (props) {
 		super(props);
-		this.handleFrequencyChange = this.handleFrequencyChange.bind(this);
+		this.handleGetMasterList = this.handleGetMasterList.bind(this)
 		this.handleCurrencyChange = this.handleCurrencyChange.bind(this);
+		this.handleFrequencyChange = this.handleFrequencyChange.bind(this);
 		this.state = {
+			currencyListMaster: [],
 			selectedCurrencies: [],
 			frequency: 	3000,
 		};
 	}
 
-	handleFrequencyChange(frequency) {
-		this.setState({frequency})
+	handleGetMasterList() {
+		CoinAPI.metadata_list_assets()
+			.then( (assets) => {
+				const list = this.filterOutFiat(assets);
+				return list })
+			.then( (list) => {
+				this.setState({
+					currencyListMaster: list
+			})});
 	}
 
 	handleCurrencyChange(event) {
@@ -34,6 +44,20 @@ class ContentPane extends React.Component {
 		} else {
 			this.currencyDeselect(currency)
 		}
+	}
+
+	handleFrequencyChange(frequency) {
+		this.setState({frequency})
+	}
+
+	filterOutFiat(currencies) {
+		let filtered = [];
+		currencies.forEach( (currency) => {
+			if (currency.type_is_crypto) {
+				filtered.push({name: currency.name, id: currency.asset_id})
+			}
+		});
+		return filtered
 	}
 
 	currencySelect(currency) {
@@ -59,6 +83,12 @@ class ContentPane extends React.Component {
 			handleCurrencyChange: this.handleCurrencyChange
 		};
 
+		const selectProps = {
+			getMasterList: this.handleGetMasterList,
+			selectedCurrencies: selectedCurrencies,
+			currencyListMaster: this.state.currencyListMaster
+		};
+
 		tab = <div>Switching off content tabs for now :)</div>
 		// switch(tabNum) {
 		// 	case 1:
@@ -77,7 +107,7 @@ class ContentPane extends React.Component {
 				<CurrencyContext.Provider value={currencyContext}>
 					{ (tabNum !== 3) &&
 						<div className="options-bar">
-							<SelectBar selectedCurrencies={selectedCurrencies} />
+							<SelectBar {...selectProps} />
 							<FrequencyBar onFrequencyChange={this.handleFrequencyChange} />
 						</div>}
 					{tab}

@@ -1,5 +1,4 @@
 import React from 'react';
-import CoinAPI from '../SDKs/CoinAPI';
 
 import SearchList from './SearchList'
 
@@ -10,35 +9,16 @@ class SelectBar extends React.Component {
 		this.handleChange = this.handleChange.bind(this);
 		this.handleDoneClick = this.handleDoneClick.bind(this);
 		this.state = {
-			currencyListMaster: [],
 			searchInput: '',
 			searching: false,
 		};
 	}
 
 	handleFocus() {
-		let masterCopy = this.state.currencyListMaster;
+		const {currencyListMaster, getMasterList} = this.props;
 
-		if (masterCopy.length === 0) {
-			// masterCopy = this.getCurrenciesFromAPI()
-			console.log(`========== Fetching API ==========`)
-			CoinAPI.metadata_list_assets().then( (assets) => {
-				let list = [];
-				assets.forEach( (asset) => {
-					if (asset.type_is_crypto) {
-						list.push({name: asset.name, id: asset.asset_id})
-					}
-				})
-				return list
-			}).then( (list) => {
-				this.setState({
-					searching: true,
-					currencyListMaster: list
-				})});
-		} else {
-			console.log("===== Setting State *only searching* =====")
-			this.setState({searching: true})
-		}
+		if (!currencyListMaster.length) { getMasterList() }
+		this.setState({searching: true})
 	}
 
 	handleChange(event) {
@@ -89,8 +69,11 @@ class SelectBar extends React.Component {
 	}
 
 	render() {
-		const {currencyListMaster, searchInput, searching} = this.state;
-		const filteredList = this.filterList(currencyListMaster, searchInput);
+		// Deep copy to create new object reference
+		const masterCopy = JSON.parse(JSON.stringify(this.props.currencyListMaster));
+
+		const {searchInput, searching} = this.state;
+		const filteredList = this.filterList(masterCopy, searchInput);
 
 		return (
 			<React.Fragment>
