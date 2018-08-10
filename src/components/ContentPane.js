@@ -83,24 +83,28 @@ class ContentPane extends React.Component {
 			handleCurrencyChange: this.handleCurrencyChange
 		};
 
+		const contentProps = {
+			selectedCurrencies: selectedCurrencies,
+			frequency: this.state.frequency
+		};
+
 		const selectProps = {
 			getMasterList: this.handleGetMasterList,
 			selectedCurrencies: selectedCurrencies,
 			currencyListMaster: this.state.currencyListMaster
 		};
 
-		tab = <div>Switching off content tabs for now :)</div>
-		// switch(tabNum) {
-		// 	case 1:
-		// 		tab = <CurrencyContent name="Value" {...this.state} />;
-		// 		break;
-		// 	case 2:
-		// 		tab = <CurrencyContent name="News" {...this.state} />;
-		// 		break;
-		// 	case 3:
-		// 		tab = <AboutContent />;
-		// 		break;
-		// }
+		switch(tabNum) {
+			case 1:
+				tab = <CurrencyContent name="Value" {...contentProps} />;
+				break;
+			case 2:
+				tab = <CurrencyContent name="News" {...contentProps} />;
+				break;
+			case 3:
+				tab = <AboutContent />;
+				break;
+		}
 
 		return (
 			<main>

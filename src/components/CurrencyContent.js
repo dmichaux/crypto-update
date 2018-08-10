@@ -3,7 +3,7 @@ import React from 'react';
 import Currency from './Currency';
 
 class CurrencyContent extends React.Component {
-	// props: name, currencies, frequency
+	// props: name, selectedCurrencies, frequency
 	// if (props.name == "Value") {
 	// 	find/display currency values
 	// } else {
@@ -12,12 +12,16 @@ class CurrencyContent extends React.Component {
 	// Will mount with setInterval() to fetch content from APIs
 	// clearInterval when dismount
 
+	currenciesToElements (currencies) {
+		const elements = currencies.map( (currency) =>
+			<Currency key={currency.id} name={currency.name} />
+		);
+		return elements
+	}
+
 	render() {
 		const currencies = this.props.selectedCurrencies;
-
-		const currencyElements = currencies.map( (currency) =>
-			<Currency key={currency} name={currency} />
-		);
+		const currencyElements = this.currenciesToElements(currencies);
 
 		return (
 			<div>
