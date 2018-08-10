@@ -5,19 +5,21 @@ import CurrencyContext from '../contexts/CurrencyContext';
 
 import SelectBar from './SelectBar';
 import FrequencyBar from './FrequencyBar';
+import SelectFiatBar from './SelectFiatBar'
 import CurrencyContent from './CurrencyContent';
 import AboutContent from './AboutContent';
-
 
 class ContentPane extends React.Component {
 	constructor (props) {
 		super(props);
 		this.handleGetMasterList = this.handleGetMasterList.bind(this)
 		this.handleCurrencyChange = this.handleCurrencyChange.bind(this);
+		this.handleFiatChange = this.handleFiatChange.bind(this);
 		this.handleFrequencyChange = this.handleFrequencyChange.bind(this);
 		this.state = {
 			currencyListMaster: [],
 			selectedCurrencies: [],
+			fiatExchange: "USD",
 			frequency: 	3000,
 		};
 	}
@@ -44,6 +46,10 @@ class ContentPane extends React.Component {
 		} else {
 			this.currencyDeselect(currency)
 		}
+	}
+
+	handleFiatChange(fiatExchange) {
+		this.setState({fiatExchange})
 	}
 
 	handleFrequencyChange(frequency) {
@@ -94,6 +100,11 @@ class ContentPane extends React.Component {
 			currencyListMaster: this.state.currencyListMaster
 		};
 
+		const selectFiatProps = {
+			fiatExchange: this.state.fiatExchange,
+			fiatChange: this.handleFiatChange
+		};
+
 		switch(tabNum) {
 			case 1:
 				tab = <CurrencyContent name="Value" {...contentProps} />;
@@ -113,7 +124,9 @@ class ContentPane extends React.Component {
 						<div className="options-bar">
 							<SelectBar {...selectProps} />
 							<FrequencyBar onFrequencyChange={this.handleFrequencyChange} />
-						</div>}
+							{ (tabNum === 1) &&
+								<SelectFiatBar {...selectFiatProps} /> }
+						</div> }
 					{tab}
 				</CurrencyContext.Provider>
 			</main>
