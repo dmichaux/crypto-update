@@ -12,16 +12,23 @@ import AboutContent from './AboutContent';
 class ContentPane extends React.Component {
 	constructor (props) {
 		super(props);
-		this.handleGetMasterList = this.handleGetMasterList.bind(this)
+		this.handleGetMasterList = this.handleGetMasterList.bind(this);
 		this.handleCurrencyChange = this.handleCurrencyChange.bind(this);
 		this.handleFiatChange = this.handleFiatChange.bind(this);
 		this.handleFrequencyChange = this.handleFrequencyChange.bind(this);
 		this.state = {
-			currencyListMaster: [],
-			selectedCurrencies: [],
+			currencyListMaster: [], /* [{name: "", id: "", rate: null}, ... ] */
+			selectedCurrencies: [], /* [{name: "", id: "", rate: Number}, ... ] */
 			fiatExchange: "USD",
 			frequency: 	3000,
 		};
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		const newState = {...this.state};
+		if (this.didStateChange(prevState, newState)) {
+			this.fetchValues(newState.fiatExchange)
+		}
 	}
 
 	handleGetMasterList() {
@@ -56,18 +63,52 @@ class ContentPane extends React.Component {
 		this.setState({frequency})
 	}
 
+	didStateChange(prevState, newState) {
+		if (prevState.fiatExchange !== newState.fiatExchange) {return true}
+		if (prevState.frequency !== newState.frequency) {return true}
+		if (prevState.selectedCurrencies.length !== newState.selectedCurrencies.length) {return true}
+	}
+
+	fetchValues(fiatExchange) {
+		// Deep copy to create new object reference
+		let selected = JSON.parse(JSON.stringify(this.state.selectedCurrencies))
+		console.log(`===== Fetching Rates =====`)
+		CoinAPI.exchange_rates_get_all_current_rates(fiatExchange)
+			.then( (response) => {
+				selected = this.mergeInValues(response, selected);
+				return selected })
+			.then( (selectedCurrencies) => this.setState({selectedCurrencies}));
+	}
+
 	filterOutFiat(currencies) {
 		let filtered = [];
 		currencies.forEach( (currency) => {
 			if (currency.type_is_crypto) {
-				filtered.push({name: currency.name, id: currency.asset_id})
+				filtered.push({
+					name: currency.name,
+					id: currency.asset_id,
+					rate: null
+				})
 			}
 		});
 		return filtered
 	}
 
+	mergeInValues(fetched, selected) {
+		const currencyIDs = selected.map( (currency) => currency.id )
+		const rates = fetched.rates;
+		const relevantRates = rates.filter( (rate) => currencyIDs.includes(rate.asset_id_quote) );
+		selected = selected.map( (currency) => {
+			const twin = relevantRates.find( (rate) => (rate.asset_id_quote === currency.id) );
+			currency.rate = twin.rate;
+			return currency
+		});
+		return selected
+	}
+
 	currencySelect(currency) {
-		const currenciesCopy = this.state.selectedCurrencies
+		// Deep copy to create new object reference
+		const currenciesCopy = JSON.parse(JSON.stringify(this.state.selectedCurrencies));
 		currenciesCopy.push(currency)
 		this.setState({selectedCurrencies: currenciesCopy})
 	}
@@ -80,31 +121,34 @@ class ContentPane extends React.Component {
 	}
 
 	render () {
-		const selectedCurrencies = this.state.selectedCurrencies;
 		const {tabNum} = this.props;
-		let tab;
+		const {currencyListMaster, selectedCurrencies,
+						fiatExchange, frequency} = this.state;
 
 		const currencyContext = {
-			selectedCurrencies: selectedCurrencies,
-			handleCurrencyChange: this.handleCurrencyChange
+			handleCurrencyChange: this.handleCurrencyChange,
+			selectedCurrencies: selectedCurrencies
 		};
 
 		const contentProps = {
+			// getValues: this.handleGetValues,
 			selectedCurrencies: selectedCurrencies,
-			frequency: this.state.frequency
+			fiatExchange: fiatExchange,
+			frequency: frequency
 		};
 
 		const selectProps = {
 			getMasterList: this.handleGetMasterList,
 			selectedCurrencies: selectedCurrencies,
-			currencyListMaster: this.state.currencyListMaster
+			currencyListMaster: currencyListMaster
 		};
 
 		const selectFiatProps = {
-			fiatExchange: this.state.fiatExchange,
-			fiatChange: this.handleFiatChange
+			fiatChange: this.handleFiatChange,
+			fiatExchange: fiatExchange
 		};
 
+		let tab;
 		switch(tabNum) {
 			case 1:
 				tab = <CurrencyContent name="Value" {...contentProps} />;

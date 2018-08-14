@@ -3,7 +3,7 @@ import React from 'react';
 import Currency from './Currency';
 
 class CurrencyContent extends React.Component {
-	// props: name, selectedCurrencies, frequency
+	// props: getValues, name, selectedCurrencies, fiatExchange, frequency
 	// if (props.name == "Value") {
 	// 	find/display currency values
 	// } else {
@@ -12,16 +12,35 @@ class CurrencyContent extends React.Component {
 	// Will mount with setInterval() to fetch content from APIs
 	// clearInterval when dismount
 
-	currenciesToElements (currencies) {
-		const elements = currencies.map( (currency) =>
-			<Currency key={currency.id} name={currency.name} />
+	// componentDidMount() {
+	// 	console.log(`===== componentDidMount =====`)
+	// 	const {getValues, name, selectedCurrencies, fiatExchange} = this.props
+	// 	if (selectedCurrencies.length) {
+	// 		if (name === "Value") { getValues(selectedCurrencies, fiatExchange) }
+	// 		// if (name === "News") { this.getNews(selectedCurrencies) }
+	// 	}
+	// }
+
+	// componentDidUpdate() {
+	// 	console.log(`===== componentDidUpdate =====`)
+	// 	const {getValues, name, selectedCurrencies, fiatExchange} = this.props
+	// 	if (selectedCurrencies.length) {
+	// 		if (name === "Value") { getValues(selectedCurrencies, fiatExchange) }
+	// 		// if (name === "News") { this.getNews(selectedCurrencies) }
+	// 	}
+	// }
+
+	currenciesToElements () {
+		const {selectedCurrencies, fiatExchange} = this.props;
+		const elements = selectedCurrencies.map( (currency) =>
+			<Currency key={currency.id} fiatExchange={fiatExchange}
+								{...currency} />
 		);
 		return elements
 	}
 
 	render() {
-		const currencies = this.props.selectedCurrencies;
-		const currencyElements = this.currenciesToElements(currencies);
+		const currencyElements = this.currenciesToElements();
 
 		return (
 			<div>

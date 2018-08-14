@@ -1,13 +1,21 @@
 import React from 'react';
 
 class Currency extends React.Component {
+	convertRate(rate) {
+		return (1 / rate)
+	}
+
 	render () {
+		const {name, id, rate, fiatExchange} = this.props;
+		const convertedRate = this.convertRate(rate);
+
+		console.log(`=== Rendering ${id} in ${fiatExchange} with rate: ${rate} ===`)
+
 		return (
 			<div>
-				<div>img_here</div>
-				<div>{this.props.name}</div>
-				<div>info_here: value/news</div>
-				<div>info_here: USD/EUR value</div>
+				<div>{id} - {name}</div>
+				<div>1 {fiatExchange} = {rate} {id}</div>
+				<div>1 {id} = {convertedRate} {fiatExchange}</div>
 			</div>
 		);
 	}
