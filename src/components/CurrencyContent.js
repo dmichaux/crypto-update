@@ -17,30 +17,30 @@ class CurrencyContent extends React.Component {
 
 	// ===== Lifecycle
 
-	componentDidMount() {
-		const {selectedCurrencies, frequency, fetchValues} = this.props;
-		if (selectedCurrencies.length) {
-			const timerID = setInterval(fetchValues, frequency)
-			this.setState({timerID}, fetchValues)
-		}
-	}
+	// componentDidMount() {
+	// 	const {selectedCurrencies, frequency, fetchValues} = this.props;
+	// 	if (selectedCurrencies.length) {
+	// 		const timerID = setInterval(fetchValues, frequency)
+	// 		this.setState({timerID}, fetchValues)
+	// 	}
+	// }
 
-	componentDidUpdate(prevProps) {
-		const newProps = {...this.props};
-		if (this.didPropsChange(prevProps, newProps)) {
-			let {timerID} = this.state;
-			if (timerID) {
-				clearInterval(timerID) }
-			timerID = setInterval(newProps.fetchValues, newProps.frequency);
-			this.setState({timerID}, newProps.fetchValues)
-		}
-	}
+	// componentDidUpdate(prevProps) {
+	// 	const newProps = {...this.props};
+	// 	if (this.didPropsChange(prevProps, newProps)) {
+	// 		let {timerID} = this.state;
+	// 		if (timerID) {
+	// 			clearInterval(timerID) }
+	// 		timerID = setInterval(newProps.fetchValues, newProps.frequency);
+	// 		this.setState({timerID}, newProps.fetchValues)
+	// 	}
+	// }
 
-	componentWillUnmount() {
-		const {timerID} = this.state;
-		if (timerID) {
-			clearInterval(timerID) }
-	}
+	// componentWillUnmount() {
+	// 	const {timerID} = this.state;
+	// 	if (timerID) {
+	// 		clearInterval(timerID) }
+	// }
 
 	// ===== Internals
 
