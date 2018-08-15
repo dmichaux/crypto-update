@@ -15,9 +15,9 @@ class SelectBar extends React.Component {
 	}
 
 	handleFocus() {
-		const {currencyListMaster, getMasterList} = this.props;
+		const {currencyListMaster, fetchMasterList} = this.props;
 
-		if (!currencyListMaster.length) { getMasterList() }
+		if (!currencyListMaster.length) { fetchMasterList() }
 		this.setState({searching: true})
 	}
 

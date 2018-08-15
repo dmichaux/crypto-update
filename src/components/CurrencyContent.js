@@ -3,32 +3,52 @@ import React from 'react';
 import Currency from './Currency';
 
 class CurrencyContent extends React.Component {
-	// props: getValues, name, selectedCurrencies, fiatExchange, frequency
+	// props: name, selectedCurrencies, fiatExchange, frequency, fetchValues()
 	// if (props.name == "Value") {
 	// 	find/display currency values
 	// } else {
 	// 	find/diplay currency news
 	// }
-	// Will mount with setInterval() to fetch content from APIs
-	// clearInterval when dismount
 
-	// componentDidMount() {
-	// 	console.log(`===== componentDidMount =====`)
-	// 	const {getValues, name, selectedCurrencies, fiatExchange} = this.props
-	// 	if (selectedCurrencies.length) {
-	// 		if (name === "Value") { getValues(selectedCurrencies, fiatExchange) }
-	// 		// if (name === "News") { this.getNews(selectedCurrencies) }
-	// 	}
-	// }
+	constructor(props) {
+		super(props);
+		this.state = { timerID: null };
+	}
 
-	// componentDidUpdate() {
-	// 	console.log(`===== componentDidUpdate =====`)
-	// 	const {getValues, name, selectedCurrencies, fiatExchange} = this.props
-	// 	if (selectedCurrencies.length) {
-	// 		if (name === "Value") { getValues(selectedCurrencies, fiatExchange) }
-	// 		// if (name === "News") { this.getNews(selectedCurrencies) }
-	// 	}
-	// }
+	// ===== Lifecycle
+
+	componentDidMount() {
+		const {selectedCurrencies, frequency, fetchValues} = this.props;
+		if (selectedCurrencies.length) {
+			const timerID = setInterval(fetchValues, frequency)
+			this.setState({timerID}, fetchValues)
+		}
+	}
+
+	componentDidUpdate(prevProps) {
+		const newProps = {...this.props};
+		if (this.didPropsChange(prevProps, newProps)) {
+			let {timerID} = this.state;
+			if (timerID) {
+				clearInterval(timerID) }
+			timerID = setInterval(newProps.fetchValues, newProps.frequency);
+			this.setState({timerID}, newProps.fetchValues)
+		}
+	}
+
+	componentWillUnmount() {
+		const {timerID} = this.state;
+		if (timerID) {
+			clearInterval(timerID) }
+	}
+
+	// ===== Internals
+
+	didPropsChange(prevProps, newProps) {
+		if (newProps.frequency 		!== prevProps.frequency) 		{return true}
+		if (newProps.fiatExchange !== prevProps.fiatExchange) {return true}
+		if (newProps.selectedCurrencies.length !== prevProps.selectedCurrencies.length) {return true}
+	}
 
 	currenciesToElements () {
 		const {selectedCurrencies, fiatExchange} = this.props;
@@ -38,6 +58,8 @@ class CurrencyContent extends React.Component {
 		);
 		return elements
 	}
+
+	// ===== Render
 
 	render() {
 		const currencyElements = this.currenciesToElements();
