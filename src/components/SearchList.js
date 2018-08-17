@@ -4,6 +4,8 @@ import CurrencyContext from '../contexts/CurrencyContext';
 
 class SearchList extends React.Component {
 
+	// ===== Internals
+
 	// Takes array of objects, returns array of button elements
 	listToButtons(list, handler, addedClass="") {
 		const buttons = list.map( (item) => {
@@ -14,8 +16,11 @@ class SearchList extends React.Component {
 		return buttons
 	}
 
+	// ===== Render
+
 	render() {
 		const {filteredList, handleDoneClick} = this.props;
+		const topSixteen = filteredList.slice(0, 16);
 
 		return (
 				<CurrencyContext.Consumer>
@@ -28,7 +33,7 @@ class SearchList extends React.Component {
 								<div>Selected: {this.listToButtons(selected, handler, 'selected-currency')}</div>
 								<div>
 									<button type="button" onClick={handleDoneClick}>Done</button>
-									Filtered: {this.listToButtons(filteredList, handler)}
+									Filtered: {this.listToButtons(topSixteen, handler)}
 								</div>
 							</React.Fragment>
 						)}}
