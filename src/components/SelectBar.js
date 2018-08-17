@@ -14,10 +14,9 @@ class SelectBar extends React.Component {
 		};
 	}
 
-	handleFocus() {
-		const {currencyListMaster, fetchMasterList} = this.props;
+	// ===== Handlers
 
-		if (!currencyListMaster.length) { fetchMasterList() }
+	handleFocus() {
 		this.setState({searching: true})
 	}
 
@@ -28,6 +27,8 @@ class SelectBar extends React.Component {
 	handleDoneClick() {
 		this.setState({searching: false});
 	}
+
+	// Internals
 
 	// Takes array of objects and term, returns final filtered array of objects
 	filterList(list, filterTerm) {
@@ -67,6 +68,8 @@ class SelectBar extends React.Component {
 		})
 		return filtered
 	}
+
+	// ===== Render
 
 	render() {
 		// Deep copy to create new object reference

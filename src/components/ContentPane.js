@@ -12,11 +12,10 @@ import AboutContent from './AboutContent';
 class ContentPane extends React.Component {
 	constructor (props) {
 		super(props);
-		this.fetchMasterList = this.fetchMasterList.bind(this);
-		this.fetchValues = this.fetchValues.bind(this);
 		this.handleCurrencyChange = this.handleCurrencyChange.bind(this);
 		this.handleFiatChange = this.handleFiatChange.bind(this);
 		this.handleFrequencyChange = this.handleFrequencyChange.bind(this);
+		this.fetchValues = this.fetchValues.bind(this);
 		this.state = {
 			currencyListMaster: [], /* [{name: "", id: "", rate: null}, ... ] */
 			selectedCurrencies: [], /* [{name: "", id: "", rate: Number}, ... ] */
@@ -25,28 +24,10 @@ class ContentPane extends React.Component {
 		};
 	}
 
-	// ===== API Calls
+	// ===== Lifecycle
 
-	fetchMasterList() {
-		CoinAPI.metadata_list_assets()
-			.then( (assets) => {
-				const list = this.filterOutFiat(assets);
-				return list })
-			.then( (list) => {
-				this.setState({
-					currencyListMaster: list
-			})});
-	}
-
-	fetchValues() {
-		const {fiatExchange} = this.state;
-		// Deep copy to create new object reference
-		let selected = JSON.parse(JSON.stringify(this.state.selectedCurrencies))
-		CoinAPI.exchange_rates_get_all_current_rates(fiatExchange)
-			.then( (response) => {
-				selected = this.mergeInValues(response, selected);
-				return selected })
-			.then( (selectedCurrencies) => this.setState({selectedCurrencies}));
+	componentDidMount() {
+		this.fetchMasterList()
 	}
 
 	// ===== Handlers
@@ -68,6 +49,30 @@ class ContentPane extends React.Component {
 
 	handleFrequencyChange(frequency) {
 		this.setState({frequency})
+	}
+
+	// ===== API Callers
+
+	fetchMasterList() {
+		CoinAPI.metadata_list_assets()
+			.then( (assets) => {
+				const list = this.filterOutFiat(assets);
+				return list })
+			.then( (list) => {
+				this.setState({
+					currencyListMaster: list
+			})});
+	}
+
+	fetchValues() {
+		const {fiatExchange} = this.state;
+		// Deep copy to create new object reference
+		let selected = JSON.parse(JSON.stringify(this.state.selectedCurrencies))
+		CoinAPI.exchange_rates_get_all_current_rates(fiatExchange)
+			.then( (response) => {
+				selected = this.mergeInValues(response, selected);
+				return selected })
+			.then( (selectedCurrencies) => this.setState({selectedCurrencies}));
 	}
 
 	// ===== Internals
@@ -132,7 +137,6 @@ class ContentPane extends React.Component {
 		};
 
 		const selectProps = {
-			fetchMasterList: this.fetchMasterList,
 			selectedCurrencies: selectedCurrencies,
 			currencyListMaster: currencyListMaster
 		};
