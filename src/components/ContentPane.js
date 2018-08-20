@@ -1,6 +1,7 @@
 import React from 'react';
 
 import CoinAPI from '../SDKs/CoinAPI';
+import NewsAPI from '../SDKs/CryptoNewsAPI';
 import CurrencyContext from '../contexts/CurrencyContext';
 
 import SelectBar from './SelectBar';
