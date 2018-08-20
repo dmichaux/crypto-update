@@ -3,13 +3,6 @@ import React from 'react';
 import Currency from './Currency';
 
 class CurrencyContent extends React.Component {
-	// props: name, selectedCurrencies, fiatExchange, frequency, fetchValues()
-	// if (props.name == "Value") {
-	// 	find/display currency values
-	// } else {
-	// 	find/diplay currency news
-	// }
-
 	constructor(props) {
 		super(props);
 		this.state = { timerID: null };
@@ -29,7 +22,6 @@ class CurrencyContent extends React.Component {
 	componentDidUpdate(prevProps) {
 		const newProps = {...this.props};
 		if (newProps.selectedCurrencies.length && this.didPropsChange(prevProps, newProps)) {
-			console.log(`Running 'if inside CurrencyContent componentDidUpdate. (Re)Setting timer.`)
 			let {timerID} = this.state;
 			if (timerID) {
 				clearInterval(timerID) }

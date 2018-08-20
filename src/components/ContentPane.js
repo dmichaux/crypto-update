@@ -7,6 +7,7 @@ import SelectBar from './SelectBar';
 import FrequencyBar from './FrequencyBar';
 import SelectFiatBar from './SelectFiatBar'
 import CurrencyContent from './CurrencyContent';
+import NewsContent from './NewsContent';
 import AboutContent from './AboutContent';
 
 class ContentPane extends React.Component {
@@ -54,7 +55,6 @@ class ContentPane extends React.Component {
 	// ===== API Callers
 
 	fetchMasterList() {
-		console.log(`===== Fetching Master List`)
 		CoinAPI.metadata_list_assets()
 			.then( (assets) => {
 				const list = this.filterOutFiat(assets);
@@ -66,7 +66,6 @@ class ContentPane extends React.Component {
 	}
 
 	fetchValues() {
-		console.log(`===== Fetching Values`)
 		const {fiatExchange} = this.state;
 		// Deep copy to create new object reference
 		let selected = JSON.parse(JSON.stringify(this.state.selectedCurrencies))
@@ -154,7 +153,7 @@ class ContentPane extends React.Component {
 				tab = <CurrencyContent name="Value" {...contentProps} />;
 				break;
 			case 2:
-				tab = <CurrencyContent name="News" {...contentProps} />;
+				tab = <NewsContent />;
 				break;
 			case 3:
 				tab = <AboutContent />;
