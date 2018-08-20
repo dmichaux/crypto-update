@@ -25,9 +25,11 @@ class CurrencyContent extends React.Component {
 		}
 	}
 
+
 	componentDidUpdate(prevProps) {
 		const newProps = {...this.props};
-		if (this.didPropsChange(prevProps, newProps)) {
+		if (newProps.selectedCurrencies.length && this.didPropsChange(prevProps, newProps)) {
+			console.log(`Running 'if inside CurrencyContent componentDidUpdate. (Re)Setting timer.`)
 			let {timerID} = this.state;
 			if (timerID) {
 				clearInterval(timerID) }

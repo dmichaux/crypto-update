@@ -32,6 +32,7 @@ class SelectBar extends React.Component {
 
 	// Takes array of objects and term, returns final filtered array of objects
 	filterList(list, filterTerm) {
+		console.log(`===== Filtering List`)
 		const selected = this.props.selectedCurrencies;
 		let filteredList = list;
 
