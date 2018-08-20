@@ -153,7 +153,7 @@ class ContentPane extends React.Component {
 				tab = <CurrencyContent name="Value" {...contentProps} />;
 				break;
 			case 2:
-				tab = <NewsContent />;
+				tab = <NewsContent currencies={selectedCurrencies}/>;
 				break;
 			case 3:
 				tab = <AboutContent />;
