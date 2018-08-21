@@ -2,12 +2,13 @@ import React from 'react';
 
 import NewsAPI from '../SDKs/CryptoNewsAPI';
 
+import CurrencyNews from './CurrencyNews';
+
 class NewsContent extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			topNews: [],
-			currencyNews: []
 		};
 	}
 
@@ -18,10 +19,12 @@ class NewsContent extends React.Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		const {currencies} = this.props;
-		if (currencies.length !== prevProps.currencies.length) {
-			console.log(`Calling 'if' inside NewsContent componentDidUpdate`)
-			this.fetchCurrencyNews(currencies[0].name.toLowerCase())
+		const {selectedCurrencies, fetchCurrencyNews} = this.props;
+		if (selectedCurrencies.length !== prevProps.selectedCurrencies.length) {
+			selectedCurrencies.forEach( (currency) => {
+				let currencyName = this.formatName(currency.name);
+				fetchCurrencyNews(currencyName)
+			})
 		}
 	}
 
@@ -34,19 +37,29 @@ class NewsContent extends React.Component {
 			}));
 	}
 
-	fetchCurrencyNews(currency) {
-		console.log(`===== Fetching currencyNews`)
-		NewsAPI.getTopNewsByCoin(currency)
-			.then( (articles) => this.setState({
-				currencyNews: articles[0]
-			}));
+	// ===== Internals
+
+	formatName(name) {
+		name = name.toLowerCase()
+		if (/\s/.test(name)) {
+			name = name.replace(" ", "-")
+		}
+		return name
+	}
+
+	currenciesToElements() {
+		const {selectedCurrencies} = this.props;
+		const elements = selectedCurrencies.map( (currency) =>
+			<CurrencyNews key={currency.id} {...currency} />
+			);
+		return elements
 	}
 
 	// ===== Render
 
 	render() {
-		const {topNews, currencyNews} = this.state;
-		console.log(`currencyNews: ${currencyNews}`)
+		const {topNews} = this.state;
+		const newsElements = this.currenciesToElements()
 
 		return (
 			<React.Fragment>
@@ -57,10 +70,7 @@ class NewsContent extends React.Component {
 						<li><a href={topNews[1].url}>{topNews[1].title}</a></li>
 					</ol>}
 				</div>
-				<div>
-					Top News for currency:<br />
-					{currencyNews && <a href={currencyNews.url}>{currencyNews.title}</a>}
-				</div>
+				{newsElements}
 			</React.Fragment>
 		);
 	}

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import CoinAPI from '../SDKs/CoinAPI';
+import NewsAPI from '../SDKs/CryptoNewsAPI';
 import CurrencyContext from '../contexts/CurrencyContext';
 
 import SelectBar from './SelectBar';
@@ -17,9 +18,10 @@ class ContentPane extends React.Component {
 		this.handleFiatChange = this.handleFiatChange.bind(this);
 		this.handleFrequencyChange = this.handleFrequencyChange.bind(this);
 		this.fetchValues = this.fetchValues.bind(this);
+		this.fetchCurrencyNews = this.fetchCurrencyNews.bind(this);
 		this.state = {
-			currencyListMaster: [], /* [{name: "", id: "", rate: null}, ... ] */
-			selectedCurrencies: [], /* [{name: "", id: "", rate: Number}, ... ] */
+			currencyListMaster: [], /* [{name: "", id: "", rate: null, news: null}, ... ] */
+			selectedCurrencies: [], /* [{name: "", id: "", rate: Number, news: {title: "", url: ""}}, ... ] */
 			fiatExchange: "USD",
 			frequency: 	3000,
 		};
@@ -54,6 +56,8 @@ class ContentPane extends React.Component {
 
 	// ===== API Callers
 
+		// --- Coin API
+
 	fetchMasterList() {
 		CoinAPI.metadata_list_assets()
 			.then( (assets) => {
@@ -68,12 +72,28 @@ class ContentPane extends React.Component {
 	fetchValues() {
 		const {fiatExchange} = this.state;
 		// Deep copy to create new object reference
-		let selected = JSON.parse(JSON.stringify(this.state.selectedCurrencies))
+		let selected = JSON.parse(JSON.stringify(this.state.selectedCurrencies));
 		CoinAPI.exchange_rates_get_all_current_rates(fiatExchange)
 			.then( (response) => {
 				selected = this.mergeInValues(response, selected);
 				return selected })
 			.then( (selectedCurrencies) => this.setState({selectedCurrencies}));
+	}
+
+		// --- News API
+
+	fetchCurrencyNews(currency) {
+		// Deep copy to create new object reference
+		let selected = JSON.parse(JSON.stringify(this.state.selectedCurrencies));
+		NewsAPI.getTopNewsByCoin(currency)
+			.then( (articles) => {
+				selected = this.mergeInNews(articles[0], currency, selected);
+				return selected })
+			.then( (selectedCurrencies) => this.setState({selectedCurrencies}))
+			.catch( () => {
+				selected = this.mergeInNewsError(currency, selected);
+				this.setState({selectedCurrencies: selected})
+			});
 	}
 
 	// ===== Internals
@@ -85,7 +105,8 @@ class ContentPane extends React.Component {
 				filtered.push({
 					name: currency.name,
 					id: currency.asset_id,
-					rate: null
+					rate: null,
+					news: null
 				})
 			}
 		});
@@ -99,6 +120,34 @@ class ContentPane extends React.Component {
 		selected = selected.map( (currency) => {
 			const twin = relevantRates.find( (rate) => (rate.asset_id_quote === currency.id) );
 			currency.rate = twin.rate;
+			return currency
+		});
+		return selected
+	}
+
+	mergeInNews(news, currencyName, selected) {
+		currencyName = this.reFormatName(currencyName);
+		selected = selected.map( (currency) => {
+			if (currency.name.toLowerCase() === currencyName) {
+				currency.news = {title: news.title, url: news.url};
+			}
+			return currency
+		});
+		return selected
+	}
+
+	reFormatName(name) {
+		if (/-/.test(name)) {
+			name = name.replace("-", " ")
+		}
+		return name
+	}
+
+	mergeInNewsError(currencyName, selected) {
+		selected = selected.map( (currency) => {
+			if (currency.name.toLowerCase() === currencyName) {
+				currency.news = {url: null, title: `Cannot find news for ${currency.name}`};
+			}
 			return currency
 		});
 		return selected
@@ -127,7 +176,7 @@ class ContentPane extends React.Component {
 
 		const currencyContext = {
 			handleCurrencyChange: this.handleCurrencyChange,
-			selectedCurrencies: selectedCurrencies
+			selectedCurrencies: selectedCurrencies,
 		};
 
 		const contentProps = {
@@ -137,23 +186,28 @@ class ContentPane extends React.Component {
 			fetchValues: this.fetchValues,
 		};
 
+		const newsProps = {
+			selectedCurrencies: selectedCurrencies,
+			fetchCurrencyNews: this.fetchCurrencyNews,
+		};
+
 		const selectProps = {
 			selectedCurrencies: selectedCurrencies,
-			currencyListMaster: currencyListMaster
+			currencyListMaster: currencyListMaster,
 		};
 
 		const selectFiatProps = {
 			fiatChange: this.handleFiatChange,
-			fiatExchange: fiatExchange
+			fiatExchange: fiatExchange,
 		};
 
 		let tab;
 		switch(tabNum) {
 			case 1:
-				tab = <CurrencyContent name="Value" {...contentProps} />;
+				tab = <CurrencyContent {...contentProps} />;
 				break;
 			case 2:
-				tab = <NewsContent currencies={selectedCurrencies}/>;
+				tab = <NewsContent {...newsProps}/>;
 				break;
 			case 3:
 				tab = <AboutContent />;
