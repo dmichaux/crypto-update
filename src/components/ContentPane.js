@@ -31,7 +31,7 @@ class ContentPane extends React.Component {
 	// ===== Lifecycle
 
 	componentDidMount() {
-		this.fetchMasterList()
+		this.processMasterList()
 	}
 
 	// ===== Handlers
@@ -63,16 +63,17 @@ class ContentPane extends React.Component {
 
 		// --- Coin API
 
-	fetchMasterList() {
-		CoinAPI.metadata_list_assets()
-			.then( (assets) => {
-				const list = this.filterOutFiat(assets);
-				return list })
-			.then( (list) =>  this.setState({currencyListMaster: list}));
+	async processMasterList() {
+		let master = await CoinAPI.metadata_list_assets();		
+		// See note above filterMaster() re: why USD rates are needed.
+		const usdRates = await CoinAPI.exchange_rates_get_all_current_rates("USD");		
+		const usdRateIDs = usdRates.rates.map ( (rate) => rate.asset_id_quote)
+		master = this.filterMaster(master, usdRateIDs);
+		master = this.rebuildMasterObjects(master);
+		this.setState({currencyListMaster: master})
 	}
 
 	fetchValues() {
-		console.log(`===== Fetching Values`)
 		const {fiatExchange} = this.state;
 		// Deep copy to create new object reference
 		let selected = JSON.parse(JSON.stringify(this.state.selectedCurrencies));
@@ -103,19 +104,26 @@ class ContentPane extends React.Component {
 
 	// ===== Internals
 
-	filterOutFiat(currencies) {
-		let filtered = [];
-		currencies.forEach( (currency) => {
-			if (currency.type_is_crypto) {
-				filtered.push({
-					name: currency.name,
-					id: currency.asset_id,
-					rate: null,
-					news: null,
-				})
-			}
+	// Filter out fiat currencies.
+	// Filter out currencies where Coin API has no exchange rate data (aprox. 1/3 of listed assets do not);
+	// Most reliable filter is available USD exchanges.
+	filterMaster(master, usdRateIDs) {
+		master = master.filter( (currency) => {
+			return (currency.type_is_crypto && usdRateIDs.includes(currency.asset_id))
 		});
-		return filtered
+		return master
+	}
+
+	rebuildMasterObjects(master) {
+		master = master.map( (currency) => {
+			return ({
+				name: currency.name,
+				id: currency.asset_id,
+				rate: null,
+				news: null,
+			});
+		});
+		return master
 	}
 
 	mergeInValues(fetched, selected) {
