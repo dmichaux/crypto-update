@@ -17,13 +17,14 @@ class ContentPane extends React.Component {
 		this.handleCurrencyChange = this.handleCurrencyChange.bind(this);
 		this.handleFiatChange = this.handleFiatChange.bind(this);
 		this.handleFrequencyChange = this.handleFrequencyChange.bind(this);
+		this.handleNewsChange = this.handleNewsChange.bind(this);
 		this.fetchValues = this.fetchValues.bind(this);
 		this.fetchCurrencyNews = this.fetchCurrencyNews.bind(this);
 		this.state = {
 			currencyListMaster: [], /* [{name: "", id: "", rate: null, news: null}, ... ] */
 			selectedCurrencies: [], /* [{name: "", id: "", rate: Number, news: {title: "", url: ""}}, ... ] */
 			fiatExchange: "USD",
-			frequency: 	3000,
+			frequency: 3000,
 		};
 	}
 
@@ -54,6 +55,10 @@ class ContentPane extends React.Component {
 		this.setState({frequency})
 	}
 
+	handleNewsChange(selectedCurrencies) {
+		this.setState({selectedCurrencies})
+	}
+
 	// ===== API Callers
 
 		// --- Coin API
@@ -63,13 +68,11 @@ class ContentPane extends React.Component {
 			.then( (assets) => {
 				const list = this.filterOutFiat(assets);
 				return list })
-			.then( (list) => {
-				this.setState({
-					currencyListMaster: list
-			})});
+			.then( (list) =>  this.setState({currencyListMaster: list}));
 	}
 
 	fetchValues() {
+		console.log(`===== Fetching Values`)
 		const {fiatExchange} = this.state;
 		// Deep copy to create new object reference
 		let selected = JSON.parse(JSON.stringify(this.state.selectedCurrencies));
@@ -82,18 +85,20 @@ class ContentPane extends React.Component {
 
 		// --- News API
 
-	fetchCurrencyNews(currency) {
+	async fetchCurrencyNews(currencyName) {
 		// Deep copy to create new object reference
-		let selected = JSON.parse(JSON.stringify(this.state.selectedCurrencies));
-		NewsAPI.getTopNewsByCoin(currency)
+		const selected = JSON.parse(JSON.stringify(this.state.selectedCurrencies));
+		let currency = selected.filter( (currency) => (currency.name.toLowerCase() === this.reFormatName(currencyName)))[0];
+		const currencyWithNews = await NewsAPI.getLatestNewsByCoin(currencyName)
 			.then( (articles) => {
-				selected = this.mergeInNews(articles[0], currency, selected);
-				return selected })
-			.then( (selectedCurrencies) => this.setState({selectedCurrencies}))
+				if (!articles.length) { throw new Error("No articles found at this time.") }
+				const news = articles[0];	
+				currency.news = {title: news.title, url: news.url};
+				return currency })
 			.catch( () => {
-				selected = this.mergeInNewsError(currency, selected);
-				this.setState({selectedCurrencies: selected})
-			});
+				currency.news = {title: `Cannot find news for ${currency.name} at this time`, url: null};
+				return currency });
+		return currencyWithNews
 	}
 
 	// ===== Internals
@@ -106,7 +111,7 @@ class ContentPane extends React.Component {
 					name: currency.name,
 					id: currency.asset_id,
 					rate: null,
-					news: null
+					news: null,
 				})
 			}
 		});
@@ -114,7 +119,7 @@ class ContentPane extends React.Component {
 	}
 
 	mergeInValues(fetched, selected) {
-		const currencyIDs = selected.map( (currency) => currency.id )
+		const currencyIDs = selected.map( (currency) => currency.id );
 		const rates = fetched.rates;
 		const relevantRates = rates.filter( (rate) => currencyIDs.includes(rate.asset_id_quote) );
 		selected = selected.map( (currency) => {
@@ -125,32 +130,11 @@ class ContentPane extends React.Component {
 		return selected
 	}
 
-	mergeInNews(news, currencyName, selected) {
-		currencyName = this.reFormatName(currencyName);
-		selected = selected.map( (currency) => {
-			if (currency.name.toLowerCase() === currencyName) {
-				currency.news = {title: news.title, url: news.url};
-			}
-			return currency
-		});
-		return selected
-	}
-
 	reFormatName(name) {
 		if (/-/.test(name)) {
-			name = name.replace("-", " ")
+			name = name.replace("-", " ");
 		}
 		return name
-	}
-
-	mergeInNewsError(currencyName, selected) {
-		selected = selected.map( (currency) => {
-			if (currency.name.toLowerCase() === currencyName) {
-				currency.news = {url: null, title: `Cannot find news for ${currency.name}`};
-			}
-			return currency
-		});
-		return selected
 	}
 
 	currencySelect(currency) {
@@ -189,6 +173,7 @@ class ContentPane extends React.Component {
 		const newsProps = {
 			selectedCurrencies: selectedCurrencies,
 			fetchCurrencyNews: this.fetchCurrencyNews,
+			setNewsState: this.handleNewsChange,
 		};
 
 		const selectProps = {
@@ -209,9 +194,8 @@ class ContentPane extends React.Component {
 			case 2:
 				tab = <NewsContent {...newsProps}/>;
 				break;
-			case 3:
+			default: // case 3
 				tab = <AboutContent />;
-				break;
 		}
 
 		return (

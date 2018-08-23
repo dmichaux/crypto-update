@@ -18,7 +18,7 @@ const CurrencyNews = (props) => {
 
 	return (
 		<div>
-			Top News for {name}<br />
+			Latest News for {name}<br />
 			{element}
 		</div>
 	);
