@@ -7,6 +7,7 @@ import CurrencyNews from './CurrencyNews';
 class NewsContent extends React.Component {
 	constructor(props) {
 		super(props);
+		this.handleClickRefresh = this.handleClickRefresh.bind(this);
 		this.state = {
 			topNews: null,
 		};
@@ -14,33 +15,21 @@ class NewsContent extends React.Component {
 
 	// ===== Lifecyle
 
-	async componentDidMount() {
-		const {fetchCurrencyNews, setNewsState} = this.props;
-		// Deep copy to create new object reference
-		const selectedCopy = JSON.parse(JSON.stringify(this.props.selectedCurrencies));
-		this.fetchTopNews()
-		if (selectedCopy.length) {
-			let selectedWithNews = [];
-			for (const currency of selectedCopy) {
-				const currencyName = this.formatName(currency.name);
-				const currencyWithNews = await fetchCurrencyNews(currencyName);
-				selectedWithNews.push(currencyWithNews)
-			}
-			setNewsState(selectedWithNews)
+	componentDidMount() {
+		this.processAllNews()
+	}
+
+	componentDidUpdate(prevProps) {
+		const {selectedCurrencies} = this.props;
+		if (selectedCurrencies.length > prevProps.selectedCurrencies.length) {
+			this.processSingleNews()
 		}
 	}
 
-	async componentDidUpdate(prevProps) {
-		const {selectedCurrencies, fetchCurrencyNews, setNewsState} = this.props;
-		if (selectedCurrencies.length > prevProps.selectedCurrencies.length) {
-			// Deep copy to create new object reference
-			const selectedCopy = JSON.parse(JSON.stringify(selectedCurrencies));
-			const newCurrency = selectedCopy.slice(-1)[0];
-			const currencyName = this.formatName(newCurrency.name);
-			const currencyWithNews = await fetchCurrencyNews(currencyName);
-			selectedCopy[selectedCopy.length - 1] = currencyWithNews;
-			setNewsState(selectedCopy)
-		}
+	// ===== Handlers
+
+	handleClickRefresh() {
+		this.processAllNews()
 	}
 
 	// ===== API Callers
@@ -53,6 +42,33 @@ class NewsContent extends React.Component {
 	}
 
 	// ===== Internals
+
+	async processAllNews() {
+		const {selectedCurrencies, fetchCurrencyNews, setNewsState} = this.props;
+		this.fetchTopNews()
+		if (selectedCurrencies.length) {
+			// Deep copy to create new object reference
+			const selectedCopy = JSON.parse(JSON.stringify(selectedCurrencies));
+			let selectedWithNews = [];
+			for (const currency of selectedCopy) {
+				const currencyName = this.formatName(currency.name);
+				const currencyWithNews = await fetchCurrencyNews(currencyName);
+				selectedWithNews.push(currencyWithNews)
+			}
+			setNewsState(selectedWithNews)
+		}
+	}
+
+	async processSingleNews() {
+		const {selectedCurrencies, fetchCurrencyNews, setNewsState} = this.props;
+		// Deep copy to create new object reference
+		const selectedCopy = JSON.parse(JSON.stringify(selectedCurrencies));
+		const newCurrency = selectedCopy.slice(-1)[0];
+		const currencyName = this.formatName(newCurrency.name);
+		const currencyWithNews = await fetchCurrencyNews(currencyName);
+		selectedCopy[selectedCopy.length - 1] = currencyWithNews;
+		setNewsState(selectedCopy)
+	}
 
 	formatName(name) {
 		name = name.toLowerCase()
@@ -76,6 +92,7 @@ class NewsContent extends React.Component {
 
 		return (
 			<React.Fragment>
+				<button type="button" onClick={this.handleClickRefresh} >Refresh News</button>
 				<div>Top News
 				{topNews &&
 					<ol>
