@@ -21,6 +21,7 @@ class SearchList extends React.Component {
 	render() {
 		const {filteredList, handleDoneClick} = this.props;
 		const topSixteen = filteredList.slice(0, 16);
+		const loading = topSixteen.length ? false : <span>loading 2000+ currencies</span>
 
 		return (
 				<CurrencyContext.Consumer>
@@ -33,7 +34,7 @@ class SearchList extends React.Component {
 								<div>Selected: {this.listToButtons(selected, handler, 'selected-currency')}</div>
 								<div>
 									<button type="button" onClick={handleDoneClick}>Done</button>
-									Filtered: {this.listToButtons(topSixteen, handler)}
+									Filtered: {loading || this.listToButtons(topSixteen, handler)}
 								</div>
 							</React.Fragment>
 						)}}

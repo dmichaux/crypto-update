@@ -9,9 +9,13 @@ class Currency extends React.Component {
 		const {name, id, fiatExchange} = this.props;
 		let {rate} = this.props;
 		let convertedRate = this.convertRate(rate);
+		
 		if (rate) {
 			rate = rate.toFixed(6);
 			convertedRate = convertedRate.toFixed(6);
+		} else {
+			rate = <span>loading</span>;
+			convertedRate = <span>loading</span>;
 		}
 
 		return (
