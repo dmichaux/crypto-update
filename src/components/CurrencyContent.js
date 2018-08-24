@@ -11,10 +11,10 @@ class CurrencyContent extends React.Component {
 	// ===== Lifecycle
 
 	componentDidMount() {
-		const {selectedCurrencies, frequency, fetchValues} = this.props;
+		const {selectedCurrencies, frequency, processValues} = this.props;
 		if (selectedCurrencies.length) {
-			const timerID = setInterval(fetchValues, frequency)
-			this.setState({timerID}, fetchValues)
+			const timerID = setInterval(processValues, frequency)
+			this.setState({timerID}, processValues)
 		}
 	}
 
@@ -25,8 +25,8 @@ class CurrencyContent extends React.Component {
 			let {timerID} = this.state;
 			if (timerID) {
 				clearInterval(timerID) }
-			timerID = setInterval(newProps.fetchValues, newProps.frequency);
-			this.setState({timerID}, newProps.fetchValues)
+			timerID = setInterval(newProps.processValues, newProps.frequency);
+			this.setState({timerID}, newProps.processValues)
 		}
 	}
 

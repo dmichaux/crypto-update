@@ -1,6 +1,5 @@
 import React from 'react';
 
-import CoinAPI from '../SDKs/CoinAPI';
 import NewsAPI from '../SDKs/CryptoNewsAPI';
 import CurrencyContext from '../contexts/CurrencyContext';
 
@@ -18,11 +17,12 @@ class ContentPane extends React.Component {
 		this.handleFiatChange = this.handleFiatChange.bind(this);
 		this.handleFrequencyChange = this.handleFrequencyChange.bind(this);
 		this.handleNewsChange = this.handleNewsChange.bind(this);
-		this.fetchValues = this.fetchValues.bind(this);
+		this.processValues = this.processValues.bind(this);
 		this.fetchCurrencyNews = this.fetchCurrencyNews.bind(this);
 		this.state = {
-			currencyListMaster: [], /* [{name: "", id: "", rate: null, news: null}, ... ] */
-			selectedCurrencies: [], /* [{name: "", id: "", rate: Number, news: {title: "", url: ""}}, ... ] */
+			currencyListMaster: [], /* [{name: "", id: "", imgURL: "", rate: null, news: null}, ... ] */
+			selectedCurrencies: [], /* [{name: "", id: "", imgURL: "",
+																	rate: {USD: Number, EUR: Number}, news: {title: "", url: ""}}, ... ] */
 			fiatExchange: "USD",
 			frequency: 10000,
 		};
@@ -61,27 +61,25 @@ class ContentPane extends React.Component {
 
 	// ===== API Callers
 
-		// --- Coin API
+		// --- CryptoCompare API
 
 	async processMasterList() {
-		let master = await CoinAPI.metadata_list_assets();		
-		// See note above filterMaster() re: why USD rates are needed.
-		const usdRates = await CoinAPI.exchange_rates_get_all_current_rates("USD");		
-		const usdRateIDs = usdRates.rates.map ( (rate) => rate.asset_id_quote)
-		master = this.filterMaster(master, usdRateIDs);
+		const CCAllCoins = "https://min-api.cryptocompare.com/data/all/coinlist"
+		let master = await fetch(CCAllCoins)
+			.then( (response) => response.json() );
 		master = this.rebuildMasterObjects(master);
 		this.setState({currencyListMaster: master})
 	}
 
-	fetchValues() {
-		const {fiatExchange} = this.state;
-		// Deep copy to create new object reference
+	async processValues() {
+		// // Deep copy to create new object reference
 		let selected = JSON.parse(JSON.stringify(this.state.selectedCurrencies));
-		CoinAPI.exchange_rates_get_all_current_rates(fiatExchange)
-			.then( (response) => {
-				selected = this.mergeInValues(response, selected);
-				return selected })
-			.then( (selectedCurrencies) => this.setState({selectedCurrencies}));
+		const paramIDs = selected.map( (currency) => currency.id ).join(",");
+		const CCMultiPrice = `https://min-api.cryptocompare.com/data/pricemulti?fsyms=${paramIDs}&tsyms=EUR,USD`;
+		const values = await fetch(CCMultiPrice)
+			.then( (response) => response.json() );
+		selected = this.mergeInValues(values, selected);
+		this.setState({selectedCurrencies: selected})
 	}
 
 		// --- News API
@@ -104,35 +102,26 @@ class ContentPane extends React.Component {
 
 	// ===== Internals
 
-	// Filter out fiat currencies.
-	// Filter out currencies where Coin API has no exchange rate data (aprox. 1/3 of listed assets do not);
-	// Most reliable filter is available USD exchanges.
-	filterMaster(master, usdRateIDs) {
-		master = master.filter( (currency) => {
-			return (currency.type_is_crypto && usdRateIDs.includes(currency.asset_id))
-		});
-		return master
-	}
-
 	rebuildMasterObjects(master) {
-		master = master.map( (currency) => {
-			return ({
-				name: currency.name,
-				id: currency.asset_id,
+		master = master.Data;
+		let newMaster = [];
+		for (const coin in master) {
+			const newCoin = {
+				name: master[coin].CoinName,
+				id: master[coin].Symbol,
+				imgURL: `https://www.cryptocompare.com${master[coin].ImageUrl}`,
 				rate: null,
 				news: null,
-			});
-		});
-		return master
+			};
+			newMaster.push(newCoin)
+		}
+		return newMaster
 	}
 
-	mergeInValues(fetched, selected) {
-		const currencyIDs = selected.map( (currency) => currency.id );
-		const rates = fetched.rates;
-		const relevantRates = rates.filter( (rate) => currencyIDs.includes(rate.asset_id_quote) );
+	mergeInValues(values, selected) {
 		selected = selected.map( (currency) => {
-			const twin = relevantRates.find( (rate) => (rate.asset_id_quote === currency.id) );
-			currency.rate = twin.rate;
+			const id = currency.id;
+			currency.rate = {USD: values[id].USD, EUR: values[id].EUR};
 			return currency
 		});
 		return selected
@@ -175,7 +164,7 @@ class ContentPane extends React.Component {
 			selectedCurrencies: selectedCurrencies,
 			fiatExchange: fiatExchange,
 			frequency: frequency,
-			fetchValues: this.fetchValues,
+			processValues: this.processValues,
 		};
 
 		const newsProps = {
