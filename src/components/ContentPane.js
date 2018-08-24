@@ -24,7 +24,7 @@ class ContentPane extends React.Component {
 			currencyListMaster: [], /* [{name: "", id: "", rate: null, news: null}, ... ] */
 			selectedCurrencies: [], /* [{name: "", id: "", rate: Number, news: {title: "", url: ""}}, ... ] */
 			fiatExchange: "USD",
-			frequency: 3000,
+			frequency: 10000,
 		};
 	}
 

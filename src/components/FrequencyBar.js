@@ -22,12 +22,12 @@ class FrequencyBar extends React.Component {
 		return (
 			<div>
 				update every:
-				<button type="button" value="3000" className="frequency-tab"
-								onClick={this.handleClick}>3s</button>
-				<button type="button" value="15000" className="frequency-tab"
-								onClick={this.handleClick}>15s</button>
-				<button type="button" value="30000" className="frequency-tab"
-								onClick={this.handleClick}>30s</button>
+				<button type="button" value="10000" className="frequency-tab"
+								onClick={this.handleClick}>10s</button>
+				<button type="button" value="25000" className="frequency-tab"
+								onClick={this.handleClick}>25s</button>
+				<button type="button" value="60000" className="frequency-tab"
+								onClick={this.handleClick}>60s</button>
 			</div>
 		);
 	}
