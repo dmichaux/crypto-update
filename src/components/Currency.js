@@ -11,8 +11,8 @@ class Currency extends React.Component {
 		let convertedRate;
 
 		if (rate) {
-			rate = rate[fiatExchange].toFixed(6);
-			convertedRate = this.convertRate(rate).toFixed(6);
+			rate = (rate[fiatExchange].toFixed(6) * 1);
+			convertedRate = (this.convertRate(rate).toFixed(6) * 1);
 		} else {
 			rate = <span>loading</span>;
 			convertedRate = <span>loading</span>;
