@@ -6,7 +6,7 @@ class Currency extends React.Component {
 	}
 
 	render () {
-		const {name, id, fiatExchange} = this.props;
+		const {name, id, imgURL, fiatExchange} = this.props;
 		let {rate} = this.props;
 		let convertedRate;
 
@@ -18,9 +18,13 @@ class Currency extends React.Component {
 			convertedRate = <span>loading</span>;
 		}
 
+		const imgStyle = {width: 30, height: 30}
+		const imgTag = <img src={imgURL} alt="currency symbol"
+												style={imgStyle} />
+
 		return (
 			<div>
-				<div>{id} - {name}</div>
+				<div>{imgTag} {id} - {name}</div>
 				<div>1 {fiatExchange} = {rate} {id}</div>
 				<div>1 {id} = {convertedRate} {fiatExchange}</div>
 			</div>

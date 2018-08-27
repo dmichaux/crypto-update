@@ -1,8 +1,12 @@
 import React from 'react';
 
 const CurrencyNews = (props) => {
-	const {name} = props;
+	const {name, imgURL} = props;
 	let {news} = props;
+
+	const imgStyle = {width: 30, height: 30}
+	const imgTag = <img src={imgURL} alt="currency symbol"
+												style={imgStyle} />
 
 	let element;
 	switch(news) {
@@ -18,7 +22,7 @@ const CurrencyNews = (props) => {
 
 	return (
 		<div>
-			Latest News for {name}<br />
+			{imgTag} Latest News for {name}<br />
 			{element}
 		</div>
 	);
