@@ -49,13 +49,12 @@ class NewsContent extends React.Component {
 		if (selectedCurrencies.length) {
 			// Deep copy to create new object reference
 			const selectedCopy = JSON.parse(JSON.stringify(selectedCurrencies));
-			let selectedWithNews = [];
+			let newsForSelected = [];
 			for (const currency of selectedCopy) {
-				const currencyName = this.formatName(currency.name);
-				const currencyWithNews = await fetchCurrencyNews(currencyName);
-				selectedWithNews.push(currencyWithNews)
+				const news = await fetchCurrencyNews(currency);
+				newsForSelected.push(news)
 			}
-			setNewsState(selectedWithNews)
+			setNewsState(newsForSelected)
 		}
 	}
 
@@ -64,18 +63,9 @@ class NewsContent extends React.Component {
 		// Deep copy to create new object reference
 		const selectedCopy = JSON.parse(JSON.stringify(selectedCurrencies));
 		const newCurrency = selectedCopy.slice(-1)[0];
-		const currencyName = this.formatName(newCurrency.name);
-		const currencyWithNews = await fetchCurrencyNews(currencyName);
-		selectedCopy[selectedCopy.length - 1] = currencyWithNews;
-		setNewsState(selectedCopy)
-	}
-
-	formatName(name) {
-		name = name.toLowerCase()
-		if (/\s/.test(name)) {
-			name = name.replace(" ", "-")
-		}
-		return name
+		let news = [];
+		news[0] = await fetchCurrencyNews(newCurrency);
+		setNewsState(news)
 	}
 
 	currenciesToElements() {

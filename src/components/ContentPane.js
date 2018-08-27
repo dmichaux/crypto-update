@@ -55,8 +55,12 @@ class ContentPane extends React.Component {
 		this.setState({frequency})
 	}
 
-	handleNewsChange(selectedCurrencies) {
-		this.setState({selectedCurrencies})
+	handleNewsChange(newsForSelected) {
+		this.setState( (prevState) => {
+			let selectedCopy = JSON.parse(JSON.stringify(prevState.selectedCurrencies));
+			selectedCopy = this.mergeInNews(newsForSelected, selectedCopy)
+			return {selectedCurrencies: selectedCopy}
+		})
 	}
 
 	// ===== API Callers
@@ -84,20 +88,18 @@ class ContentPane extends React.Component {
 
 		// --- News API
 
-	async fetchCurrencyNews(currencyName) {
-		// Deep copy to create new object reference
-		const selected = JSON.parse(JSON.stringify(this.state.selectedCurrencies));
-		let currency = selected.filter( (currency) => (currency.name.toLowerCase() === this.reFormatName(currencyName)))[0];
-		const currencyWithNews = await NewsAPI.getLatestNewsByCoin(currencyName)
+	async fetchCurrencyNews(currency) {
+		const currencyID = currency.id;
+		const formattedName = this.formatName(currency.name);
+		const news = await NewsAPI.getLatestNewsByCoin(formattedName)
 			.then( (articles) => {
 				if (!articles.length) { throw new Error("No articles found at this time.") }
-				const news = articles[0];	
-				currency.news = {title: news.title, url: news.url};
-				return currency })
+				const article = articles[0]
+				return {[currencyID]: {title: article.title, url: article.url}} })
 			.catch( () => {
-				currency.news = {title: `Cannot find news for ${currency.name} at this time`, url: null};
-				return currency });
-		return currencyWithNews
+				return {[currencyID]: {title: `Cannot find news for ${currency.name} at this time`, url: null}}
+		});
+		return news
 	}
 
 	// ===== Internals
@@ -127,9 +129,18 @@ class ContentPane extends React.Component {
 		return selected
 	}
 
-	reFormatName(name) {
-		if (/-/.test(name)) {
-			name = name.replace("-", " ");
+	mergeInNews(newsForSelected, selectedCopy) {
+		newsForSelected.forEach( (newsItem) => {
+			const currency = selectedCopy.filter( (currency) => newsItem.hasOwnProperty(currency.id))[0];
+			currency.news = newsItem[currency.id];
+		})
+		return selectedCopy
+	}
+
+	formatName(name) {
+		name = name.toLowerCase()
+		if (/\s/.test(name)) {
+			name = name.replace(" ", "-")
 		}
 		return name
 	}
