@@ -13,6 +13,19 @@ class Currency extends React.Component {
 		if (rate) {
 			rate = (rate[fiatExchange].toFixed(6) * 1);
 			convertedRate = (this.convertRate(rate).toFixed(6) * 1);
+
+			// Zero pad
+			rate = rate.toString();
+			let length = rate.length;
+			let dotIndex = rate.indexOf('.');
+			if (dotIndex === length -2) {rate = rate.padEnd(length + 1, "0")}
+			if (dotIndex === -1) {rate = rate.padEnd(length + 3, ".00")}
+			convertedRate = convertedRate.toString();
+			length = convertedRate.length;
+			dotIndex = convertedRate.indexOf('.');
+			if (dotIndex === length -2) {convertedRate = convertedRate.padEnd(length + 1, "0")}
+			if (dotIndex === -1) {convertedRate = convertedRate.padEnd(length + 3, ".00")}
+
 		} else {
 			rate = <span>loading</span>;
 			convertedRate = <span>loading</span>;
@@ -25,8 +38,8 @@ class Currency extends React.Component {
 		return (
 			<div>
 				<div>{imgTag} {id} - {name}</div>
-				<div>1 {fiatExchange} = {rate} {id}</div>
-				<div>1 {id} = {convertedRate} {fiatExchange}</div>
+				<div>1 {id} = {rate} {fiatExchange}</div>
+				<div>1 {fiatExchange} = {convertedRate} {id}</div>
 			</div>
 		);
 	}
