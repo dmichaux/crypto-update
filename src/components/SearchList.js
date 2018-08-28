@@ -19,9 +19,13 @@ class SearchList extends React.Component {
 	// ===== Render
 
 	render() {
-		const {filteredList, handleDoneClick} = this.props;
+		const {filteredList, selectedNum, handleDoneClick} = this.props;
+		const filteredNum = filteredList.length;
+		const loading = filteredNum ? false : <span>loading 2500+ currencies</span>
+		const maxedOut = selectedNum >= 4 ?
+			<span>max currencies selected - to change currencies, remove a selection</span>
+			: false
 		const topSixteen = filteredList.slice(0, 16);
-		const loading = topSixteen.length ? false : <span>loading 2000+ currencies</span>
 
 		return (
 				<CurrencyContext.Consumer>
@@ -31,10 +35,10 @@ class SearchList extends React.Component {
 
 						return (
 							<React.Fragment>
-								<div>Selected: {this.listToButtons(selected, handler, 'selected-currency')}</div>
+								<div>Selected {selectedNum} of 4: {this.listToButtons(selected, handler, 'selected-currency')}</div>
 								<div>
 									<button type="button" onClick={handleDoneClick}>Done</button>
-									Filtered: {loading || this.listToButtons(topSixteen, handler)}
+									{filteredNum} Currencies: {loading || maxedOut || this.listToButtons(topSixteen, handler)}
 								</div>
 							</React.Fragment>
 						)}}

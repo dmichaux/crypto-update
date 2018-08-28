@@ -77,6 +77,7 @@ class SelectBar extends React.Component {
 
 		const {searchInput, searching} = this.state;
 		const filteredList = this.filterList(masterCopy, searchInput);
+		const selectedNum = this.props.selectedCurrencies.length;
 
 		return (
 			<React.Fragment>
@@ -85,7 +86,7 @@ class SelectBar extends React.Component {
 								onFocus={this.handleFocus}
 								onChange={this.handleChange} />
 				{searching && 
-					<SearchList filteredList={filteredList}
+					<SearchList filteredList={filteredList} selectedNum={selectedNum}
 											handleDoneClick={this.handleDoneClick} />}
 			</React.Fragment>
 		);
