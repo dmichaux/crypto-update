@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import NewsAPI from '../SDKs/CryptoNewsAPI';
 
@@ -95,5 +96,11 @@ class NewsContent extends React.Component {
 		);
 	}
 }
+
+NewsContent.propTypes = {
+	selectedCurrencies: PropTypes.arrayOf(PropTypes.object),
+	fetchCurrencyNews: PropTypes.func,
+	setNewsState: PropTypes.func,
+};
 
 export default NewsContent;

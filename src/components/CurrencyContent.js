@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Currency from './Currency';
 
@@ -65,5 +66,12 @@ class CurrencyContent extends React.Component {
 		);
 	}
 }
+
+CurrencyContent.propTypes = {
+	selectedCurrencies: PropTypes.arrayOf(PropTypes.object),
+	fiatExchange: PropTypes.string,
+	frequency: PropTypes.number,
+	processValues: PropTypes.func,
+};
 
 export default CurrencyContent;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import CurrencyContext from '../contexts/CurrencyContext';
 
@@ -46,5 +47,11 @@ class SearchList extends React.Component {
 		);
 	}
 }
+
+SearchList.propTypes = {
+	filteredList: PropTypes.arrayOf(PropTypes.object),
+	selectedNum: PropTypes.number,
+	handleDoneClick: PropTypes.func,
+};
 
 export default SearchList;

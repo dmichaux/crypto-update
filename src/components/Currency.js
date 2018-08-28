@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Currency extends React.Component {
 	convertRate(rate) {
@@ -44,5 +45,13 @@ class Currency extends React.Component {
 		);
 	}
 }
+
+Currency.propTypes = {
+	fiatExchange: PropTypes.string,
+	name: PropTypes.string,
+	id: PropTypes.string,
+	imgURL: PropTypes.string,
+	rate: PropTypes.object
+};
 
 export default Currency;

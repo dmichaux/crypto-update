@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class FrequencyBar extends React.Component {
 	constructor(props) {
@@ -32,5 +33,9 @@ class FrequencyBar extends React.Component {
 		);
 	}
 }
+
+FrequencyBar.propTypes = {
+	onFrequencyChange: PropTypes.func,
+};
 
 export default FrequencyBar;

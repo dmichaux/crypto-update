@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import SearchList from './SearchList'
 
@@ -92,5 +93,10 @@ class SelectBar extends React.Component {
 		);
 	}
 }
+
+SelectBar.propTypes = {
+	currencyListMaster: PropTypes.arrayOf(PropTypes.object),
+	selectedCurrencies: PropTypes.arrayOf(PropTypes.object),
+};
 
 export default SelectBar;

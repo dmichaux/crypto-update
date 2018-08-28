@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import NewsAPI from '../SDKs/CryptoNewsAPI';
 import CurrencyContext from '../contexts/CurrencyContext';
@@ -224,5 +225,9 @@ class ContentPane extends React.Component {
 		);
 	}
 }
+
+ContentPane.propTypes = {
+	tabNum: PropTypes.number
+};
 
 export default ContentPane

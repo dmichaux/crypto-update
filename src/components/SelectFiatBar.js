@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class SelectFiatBar extends React.Component {
 	constructor(props) {
@@ -28,5 +29,10 @@ class SelectFiatBar extends React.Component {
 		);
 	}
 }
+
+SelectFiatBar.propTypes = {
+	fiatChange: PropTypes.func,
+	fiatExchange: PropTypes.string,
+};
 
 export default SelectFiatBar;

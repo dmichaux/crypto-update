@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const CurrencyNews = (props) => {
 	const {name, imgURL} = props;
@@ -27,5 +28,11 @@ const CurrencyNews = (props) => {
 		</div>
 	);
 }
+
+CurrencyNews.propTypes = {
+	name: PropTypes.string,
+	imgURL: PropTypes.string,
+	news: PropTypes.object,
+};
 
 export default CurrencyNews;
