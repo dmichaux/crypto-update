@@ -1,24 +1,26 @@
 import React from 'react';
 
 const AboutContent = () => {
-	// On mount, find .options-bar and hide it
+	const aboutApp = <p>Finding the exchange rates you care about can be dizzying in the crypto world of information overload. Crypto Update keeps you ahead with live prices and news, personalized for just what you want.<br />Go ahead - get udpated.</p>;
+
+	const noteOnCCs = <p>Cryptocurrencies (CCs) have no fixed or world-wide agreed upon price. Not being pegged to any other national currency, CC prices are essentially a value agreed upon by the seller and buyer at the time of trade. CC prices can change depending on the site of exchange and Crypto Update shows prices that have been aggregated and averaged from several exchanges. Crypto Update is for informational purposes only and not financial advising.</p>;
+
+	const linkCCompare = <a href="https://min-api.cryptocompare.com/">{"CryptoCompare's API"}</a>;
+	const linkCNews = <a href="https://cryptocontrol.io/en/developers/apis">Crypto News API</a>;
+	const credits = <p>Crypto Update uses {linkCCompare} for all market data and {"CryptoControl's"} {linkCNews} for the latest and greatest news.</p>;
 
 	return (
 		<React.Fragment>
 			<div>
-				<h2>About Crypto Update</h2>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a libero ut lorem elementum sagittis. Integer egestas luctus varius. In euismod est arcu, id placerat odio iaculis nec.
-				</p>
+				{aboutApp}
 			</div>
 			<div>
 				<h2>A Note on Cryptocurrencies</h2>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a libero ut lorem elementum sagittis. Integer egestas luctus varius. In euismod est arcu, id placerat odio iaculis nec. Aliquam iaculis magna auctor lorem semper tempor. Vivamus tincidunt nisl et magna dapibus sodales. Etiam quis mattis velit. In sodales, est ut ultrices aliquam, metus diam finibus diam, a molestie ligula diam sit amet ipsum. Praesent porta condimentum purus ac aliquet.
-				</p>
+				{noteOnCCs}
 			</div>
 			<div>
-				<h2>More Information</h2>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a libero ut lorem elementum sagittis. Integer egestas luctus varius. In euismod est arcu, id placerat odio iaculis nec.
-				</p>
+				<h2>Credits</h2>
+				{credits}
 			</div>
 		</React.Fragment>
 	);
