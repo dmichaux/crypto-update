@@ -6,27 +6,26 @@ class Currency extends React.Component {
 		return (1 / rate)
 	}
 
+	formatValue(value) {
+		value = value.toFixed(6) * 1;
+		value = value.toString();
+		const length = value.length;
+		const dotIndex = value.indexOf('.');
+		if (dotIndex === length -2) {value = value.padEnd(length + 1, "0")}
+		if (dotIndex === -1) {value = value.padEnd(length + 3, ".00")}
+		return value
+	}
+
 	render () {
 		const {name, id, imgURL, fiatExchange} = this.props;
 		let {rate} = this.props;
 		let convertedRate;
 
 		if (rate) {
-			rate = (rate[fiatExchange].toFixed(6) * 1);
-			convertedRate = (this.convertRate(rate).toFixed(6) * 1);
-
-			// Zero pad
-			rate = rate.toString();
-			let length = rate.length;
-			let dotIndex = rate.indexOf('.');
-			if (dotIndex === length -2) {rate = rate.padEnd(length + 1, "0")}
-			if (dotIndex === -1) {rate = rate.padEnd(length + 3, ".00")}
-			convertedRate = convertedRate.toString();
-			length = convertedRate.length;
-			dotIndex = convertedRate.indexOf('.');
-			if (dotIndex === length -2) {convertedRate = convertedRate.padEnd(length + 1, "0")}
-			if (dotIndex === -1) {convertedRate = convertedRate.padEnd(length + 3, ".00")}
-
+			rate = rate[fiatExchange];
+			convertedRate = this.convertRate(rate);
+			rate = this.formatValue(rate);
+			convertedRate = this.formatValue(convertedRate);
 		} else {
 			rate = <span>loading</span>;
 			convertedRate = <span>loading</span>;
