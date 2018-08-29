@@ -1,0 +1,22 @@
+.grid-container {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-gap: 5px;
+	grid-template-areas:
+		"num num done";
+	margin: 16px 8px;
+}
+
+/*.grid-item {}*/
+
+.grid-item-num {
+	grid-area: num;
+	place-self: center;
+}
+
+.grid-item-done {
+	grid-area: done;
+	place-self: start end;
+	padding: 2px 5px;
+	border-radius: 50%;
+}
