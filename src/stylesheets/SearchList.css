@@ -1,4 +1,15 @@
-.grid-container {
+.grid-container-selected {
+	display: grid;
+	grid-template-columns: 1fr, 2fr, 2fr;
+	grid-template-rows: 1fr, 1fr;
+	grid-gap: 5px;
+	grid-template-areas:
+		"num . ."
+		"num . .";
+	margin: 16px 8px;
+}
+
+.grid-container-filtered {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	grid-gap: 5px;
@@ -7,11 +18,16 @@
 	margin: 16px 8px;
 }
 
-/*.grid-item {}*/
+.selected-currency {
+	grid-auto-flow: column;
+}
 
 .grid-item-num {
 	grid-area: num;
 	place-self: center;
+	margin-top: 16px;
+	margin-bottom: 16px;
+	margin-left: 8px;
 }
 
 .grid-item-done {
@@ -19,4 +35,18 @@
 	place-self: start end;
 	padding: 2px 5px;
 	border-radius: 50%;
+}
+
+.loading, .maxed-out {
+	grid-column: span 3;
+	text-align: center;
+	margin-top: 30px;
+	margin-bottom: 37px;
+}
+
+.none-selected {
+	grid-column: span 2;
+	grid-row: span 2;
+	text-align: center;
+	place-self: center;
 }

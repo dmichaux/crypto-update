@@ -22,12 +22,14 @@ class SearchList extends React.Component {
 
 	render() {
 		const {filteredList, selectedNum, handleDoneClick} = this.props;
-		const filteredNum = filteredList.length;
-		const loading = filteredNum ? false : <span>loading 2500+ currencies</span>
-		const maxedOut = selectedNum >= 4 ?
-			<span>max currencies selected - to change currencies, remove a selection</span>
-			: false
 		const topTwelve = filteredList.slice(0, 12);
+		
+		const filteredNum = filteredList.length;
+		const loading = filteredNum ? false : <span className="loading">loading 2500+ currencies</span>
+		const none_selected = selectedNum ? false : <span className="none-selected">Get started...</span>
+		const maxedOut = selectedNum >= 4 ?
+			<span className="maxed-out">max currencies selected<br />remove a selection to add a new one</span>
+			: false
 
 		return (
 				<CurrencyContext.Consumer>
@@ -37,8 +39,11 @@ class SearchList extends React.Component {
 
 						return (
 							<React.Fragment>
-								<div>Selected {selectedNum} of 4: {this.listToButtons(selected, handler, ' selected-currency')}</div>
-								<div className="grid-container">
+								<div className="grid-container-selected">
+									<span className="grid-item-num">{selectedNum} of 4</span>
+									{none_selected || this.listToButtons(selected, handler, ' selected-currency')}
+								</div>
+								<div className="grid-container-filtered">
 									<span className="grid-item-num">{filteredNum} Currencies</span>
 									<button type="button" className="grid-item-done" onClick={handleDoneClick}>x</button>
 									{loading || maxedOut || this.listToButtons(topTwelve, handler)}
