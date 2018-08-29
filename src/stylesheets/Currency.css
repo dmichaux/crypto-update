@@ -1,0 +1,24 @@
+.grid-container {
+	display: grid;
+	grid: repeat(3, 1fr) / repeat(3, 1fr);
+	grid-template-areas:
+		"img name name"
+		"img rates rates"
+		"img rates rates";
+}
+
+.currency-image {
+	grid-area: img;
+	place-self: center;
+	width: 60px;
+	height: 60px;
+}
+
+.currency-name {
+	grid-area: name;
+}
+
+.currency-rates {
+	grid-area: rates;
+	align-self: center;
+}

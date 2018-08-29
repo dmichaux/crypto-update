@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../stylesheets/Currency.css';
 
 class Currency extends React.Component {
 	convertRate(rate) {
@@ -31,15 +32,20 @@ class Currency extends React.Component {
 			convertedRate = <span>loading</span>;
 		}
 
-		const imgStyle = {width: 30, height: 30}
+		// const imgStyle = {width: 30, height: 30}
 		const imgTag = <img src={imgURL} alt="currency symbol"
-												style={imgStyle} />
+												className="currency-image" />
 
 		return (
-			<div>
-				<div>{imgTag} {id} - {name}</div>
-				<div>1 {id} = {rate} {fiatExchange}</div>
-				<div>1 {fiatExchange} = {convertedRate} {id}</div>
+			<div className="grid-container">
+				{imgTag}
+				<div className="currency-name">
+				{name} ({id})
+				</div>
+				<div className="currency-rates">
+					1 {id} = {rate} {fiatExchange}<br />
+					1 {fiatExchange} = {convertedRate} {id}
+				</div>
 			</div>
 		);
 	}
