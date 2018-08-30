@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../stylesheets/FrequencyBar.css';
 
 class FrequencyBar extends React.Component {
 	constructor(props) {
@@ -21,7 +22,7 @@ class FrequencyBar extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<div className="option-frequency">
 				update every:
 				<button type="button" value="10000" className="frequency-tab"
 								onClick={this.handleClick}>10s</button>

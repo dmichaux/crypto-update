@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../stylesheets/SelectFiatBar.css';
 
 class SelectFiatBar extends React.Component {
 	constructor(props) {
@@ -18,7 +19,7 @@ class SelectFiatBar extends React.Component {
 			"EUR" : "USD";
 
 		return (
-			<div>
+			<div className="option-fiat">
 				<button type="button" disabled className="fiat-tab disabled-tab">
 					{fiatExchange}
 				</button>

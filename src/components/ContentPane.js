@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../stylesheets/ContentPane.css';
 
 import NewsAPI from '../SDKs/CryptoNewsAPI';
 import CurrencyContext from '../contexts/CurrencyContext';

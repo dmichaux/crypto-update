@@ -1,3 +1,12 @@
 .options-bar {
 	height: 10%;
 }
+
+.grid-options {
+	display: grid;
+	grid: 1fr 1fr / 2fr 1fr;
+	grid-template-areas:
+		"frequency fiat"
+		"search search";
+	grid-row-gap: 10px;
+}

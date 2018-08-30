@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../stylesheets/SelectBar.css';
 
 import SearchList from './SearchList'
 
@@ -83,6 +84,7 @@ class SelectBar extends React.Component {
 		return (
 			<React.Fragment>
 				<input type="text" placeholder="Choose a currency"
+								className="option-search"
 								value={searchInput}
 								onFocus={this.handleFocus}
 								onChange={this.handleChange} />

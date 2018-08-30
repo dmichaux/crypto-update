@@ -1,0 +1,8 @@
+.option-search {
+	grid-area: search;
+	justify-self: center;
+	width: 70%;
+/*	margin: 0;
+	border: 1px solid gray;
+	padding: 0;*/
+}

@@ -1,0 +1,4 @@
+.option-fiat {
+	grid-area: fiat;
+	justify-self: end;
+}
