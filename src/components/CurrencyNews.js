@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import '../stylesheets/CurrencyNews.css';
 
 const CurrencyNews = (props) => {
-	const {name, id, imgURL} = props;
+	const {name, imgURL} = props;
 	let {news} = props;
 
 	const imgTag = <img src={imgURL} alt="currency symbol"
@@ -24,10 +24,8 @@ const CurrencyNews = (props) => {
 	return (
 		<div className="grid-container-news">
 			{imgTag} 
-			<div className="news-data">
-				{name} ({id})<br />
-				{element}
-			</div>
+			<div className="news-name">{name}</div>
+			<div className="news-data">{element}</div>
 		</div>
 	);
 }
