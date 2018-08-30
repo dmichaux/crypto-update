@@ -1,5 +1,6 @@
 .search-list-wrapper {
 	position: absolute;
+	top: 105%;
 	left: 5%;
 	right: 5%;
 	z-index: 1;
