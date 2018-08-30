@@ -3,6 +3,7 @@
 }
 
 .grid-options {
+	position: relative;
 	display: grid;
 	grid: 1fr 1fr / 2fr 1fr;
 	grid-template-areas:
