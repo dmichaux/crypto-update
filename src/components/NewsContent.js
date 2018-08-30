@@ -83,19 +83,20 @@ class NewsContent extends React.Component {
 		const newsElements = this.currenciesToElements()
 
 		return (
-			<React.Fragment>
-				<button type="button" onClick={this.handleClickRefresh} >Refresh News</button>
-				<div>Top News
-				{topNews &&
-					<ol>
-						<li><a href={topNews[0].url}>{topNews[0].title}</a></li>
-						<li><a href={topNews[1].url}>{topNews[1].title}</a></li>
-					</ol>}
+			<div className="news-content-wrapper">
+				<div className="top-news">
+					<button type="button" onClick={this.handleClickRefresh} >Refresh News</button>
+					Top News
+					{topNews &&
+						<ol>
+							<li><a href={topNews[0].url}>{topNews[0].title}</a></li>
+							<li><a href={topNews[1].url}>{topNews[1].title}</a></li>
+						</ol>}
 				</div>
 				<div className="grid-news-list">
 					{newsElements}
 				</div>
-			</React.Fragment>
+			</div>
 		);
 	}
 }

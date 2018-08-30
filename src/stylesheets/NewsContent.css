@@ -1,5 +1,14 @@
+.news-content-wrapper {
+	height: 90%;
+}
+
+.top-news {
+	height: 30%;
+}
+
 .grid-news-list {
 	display: grid;
-	grid-template-columns: auto;
-	grid-gap: 20px;
+	grid: repeat(4, 22%) / auto;
+	grid-gap: 3%;
+	height: 70%;
 }
