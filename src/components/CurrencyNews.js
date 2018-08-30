@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../stylesheets/CurrencyNews.css';
 
 const CurrencyNews = (props) => {
-	const {name, imgURL} = props;
+	const {name, id, imgURL} = props;
 	let {news} = props;
 
-	const imgStyle = {width: 30, height: 30}
 	const imgTag = <img src={imgURL} alt="currency symbol"
-												style={imgStyle} />
+											className="currency-image-news" />
 
 	let element;
 	switch(news) {
@@ -22,9 +22,12 @@ const CurrencyNews = (props) => {
 	}
 
 	return (
-		<div>
-			{imgTag} Latest News for {name}<br />
-			{element}
+		<div className="grid-container-news">
+			{imgTag} 
+			<div className="news-data">
+				{name} ({id})<br />
+				{element}
+			</div>
 		</div>
 	);
 }
