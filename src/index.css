@@ -15,10 +15,6 @@ main {
 	height: 80%;
 }
 
-.options-bar {
-	height: 10%;
-}
-
 .selected-tab {
 	border-bottom: 2px solid red;
 }
