@@ -1,3 +1,13 @@
+.search-list-wrapper {
+	position: absolute;
+	left: 5%;
+	right: 5%;
+	z-index: 1;
+	background-color: gray;
+	border: 2px solid black;
+	border-radius: 5%;
+}
+
 .grid-container-selected {
 	display: grid;
 	grid-template-columns: 1fr, 2fr, 2fr;

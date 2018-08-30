@@ -38,7 +38,7 @@ class SearchList extends React.Component {
 						const handler = handleCurrencyChange;
 
 						return (
-							<React.Fragment>
+							<div className="search-list-wrapper">
 								<div className="grid-container-selected">
 									<span className="grid-item-num">{selectedNum} of 4</span>
 									{none_selected || this.listToButtons(selected, handler, ' selected-currency')}
@@ -48,7 +48,7 @@ class SearchList extends React.Component {
 									<button type="button" className="grid-item-done" onClick={handleDoneClick}>x</button>
 									{loading || maxedOut || this.listToButtons(topTwelve, handler)}
 								</div>
-							</React.Fragment>
+							</div>
 						)}}
 				</CurrencyContext.Consumer>
 		);
