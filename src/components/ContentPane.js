@@ -207,17 +207,23 @@ class ContentPane extends React.Component {
 				tab = <AboutContent />;
 		}
 
+		let options;
+		if (tabNum === 1) {
+			options = <div className="grid-options">
+									<FrequencyBar onFrequencyChange={this.handleFrequencyChange} />
+									<SelectFiatBar {...selectFiatProps} />
+									<SelectBar {...selectProps} />
+								</div>;
+		} else {
+			options = <SelectBar {...selectProps} />
+		}
+
 		return (
 			<main>
 				<CurrencyContext.Provider value={currencyContext}>
 					{ (tabNum !== 3) &&
 						<div className="options-bar">
-							<SelectBar {...selectProps} />
-							{ (tabNum === 1) &&
-								<React.Fragment>
-									<FrequencyBar onFrequencyChange={this.handleFrequencyChange} />
-									<SelectFiatBar {...selectFiatProps} />
-								</React.Fragment> }
+							{options}
 						</div> }
 					{tab}
 				</CurrencyContext.Provider>
