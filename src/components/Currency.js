@@ -37,7 +37,7 @@ class Currency extends React.Component {
 												className="currency-image" />
 
 		return (
-			<div className="grid-container">
+			<div className="grid-container-currency">
 				{imgTag}
 				<div className="currency-name">
 				{name} ({id})
