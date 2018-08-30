@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../stylesheets/NewsContent.css';
 
 import NewsAPI from '../SDKs/CryptoNewsAPI';
 
@@ -91,7 +92,9 @@ class NewsContent extends React.Component {
 						<li><a href={topNews[1].url}>{topNews[1].title}</a></li>
 					</ol>}
 				</div>
-				{newsElements}
+				<div className="grid-news-list">
+					{newsElements}
+				</div>
 			</React.Fragment>
 		);
 	}

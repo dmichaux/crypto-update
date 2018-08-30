@@ -1,0 +1,5 @@
+.grid-news-list {
+	display: grid;
+	grid-template-columns: auto;
+	grid-gap: 20px;
+}
