@@ -1,0 +1,8 @@
+.grid-currency-list {
+	display: grid;
+	grid-template-columns: auto;
+	grid-gap: 30px;
+	margin-top: 35px;
+}
+
+/*.currency-block {}*/

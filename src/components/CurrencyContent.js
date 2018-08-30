@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../stylesheets/CurrencyContent.css';
 
 import Currency from './Currency';
 
@@ -49,7 +50,7 @@ class CurrencyContent extends React.Component {
 		const {selectedCurrencies, fiatExchange} = this.props;
 		const elements = selectedCurrencies.map( (currency) =>
 			<Currency key={currency.id} fiatExchange={fiatExchange}
-								{...currency} />
+								className="currency-block" {...currency} />
 		);
 		return elements
 	}
@@ -60,7 +61,7 @@ class CurrencyContent extends React.Component {
 		const currencyElements = this.currenciesToElements();
 
 		return (
-			<div>
+			<div className="grid-currency-list">
 				{currencyElements}
 			</div>
 		);
