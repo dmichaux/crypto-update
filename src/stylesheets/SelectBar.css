@@ -3,5 +3,6 @@
 	place-self: center;
 	width: 100%;
 	height: 25px;
+	border: 2px solid darkgray;
 	box-sizing: border-box;
 }
