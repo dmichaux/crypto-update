@@ -1,16 +1,19 @@
 .grid-top-news {
-	height: 30%;
-	padding: 0 3%;
+	height: 125px;
+	margin: 0 2%;
 	display: grid;
 	grid-template: 1fr 2fr / repeat(3, 1fr);
 	grid-template-areas:
 		". title btn"
 		"list list list";
+	background-color: white;
+	border-top-left-radius: 5%;
+	border-top-right-radius: 5%;
 }
 
 .btn-refresh {
 	grid-area: btn;
-	justify-self: end;
+	place-self: start center;
 	width: 65%;
 	height: 55%;
 }
@@ -20,6 +23,7 @@
 	place-self: center;
 	margin: 0;
 	font-size: 1.2em;
+	color: black;
 }
 
 a {
@@ -40,8 +44,14 @@ a {
 }
 
 .grid-news-list {
+	position: absolute;
+	top: 124px;
+	bottom: 2%;
 	display: grid;
 	grid-template: repeat(4, 1fr) / auto;
 	grid-gap: 2%;
-	height: 68%;
+	margin: 0 2%;
+	background-color: white;
+	border-bottom-left-radius: 5%;
+	border-bottom-right-radius: 5%;
 }
