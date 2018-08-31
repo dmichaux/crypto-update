@@ -1,5 +1,42 @@
-.top-news {
+.grid-top-news {
 	height: 30%;
+	padding: 0 3%;
+	display: grid;
+	grid-template: 1fr 2fr / repeat(3, 1fr);
+	grid-template-areas:
+		". title btn"
+		"list list list";
+}
+
+.btn-refresh {
+	grid-area: btn;
+	justify-self: end;
+	width: 65%;
+	height: 55%;
+}
+
+.top-news-title {
+	grid-area: title;
+	place-self: center;
+	margin: 0;
+	font-size: 1.2em;
+}
+
+a {
+	text-decoration: none;
+}
+
+.top-news-list {
+	grid-area: list;
+	place-self: center;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	text-align: center;
+}
+
+.top-news-list li:not(:last-child) {
+	margin-bottom: 2%;
 }
 
 .grid-news-list {
