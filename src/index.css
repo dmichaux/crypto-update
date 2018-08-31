@@ -3,14 +3,6 @@ html, body, #root {
 	height: 100%;
 }
 
-h1 {
-	margin-top: 0;
-}
-
-header {
-	height: 85px;
-}
-
 .selected-tab {
 	border-bottom: 2px solid red;
 }
