@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import '../stylesheets/CurrencyNews.css';
 
 const CurrencyNews = (props) => {
-	const {name, imgURL} = props;
+	const {truncateTitle, name, imgURL} = props;
 	let {news} = props;
 
 	const imgTag = <img src={imgURL} alt="currency symbol"
@@ -18,7 +18,7 @@ const CurrencyNews = (props) => {
 			element = <p>{news.title}</p>;
 			break;
 		default:
-			element = <a href={news.url}>{news.title}</a>;
+			element = <a href={news.url}>{truncateTitle(news.title)}</a>;
 	}
 
 	return (
@@ -31,6 +31,7 @@ const CurrencyNews = (props) => {
 }
 
 CurrencyNews.propTypes = {
+	truncateTitle: PropTypes.func,
 	name: PropTypes.string,
 	imgURL: PropTypes.string,
 	news: PropTypes.object,

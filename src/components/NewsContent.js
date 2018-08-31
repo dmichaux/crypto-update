@@ -79,7 +79,9 @@ class NewsContent extends React.Component {
 
 	currenciesToElements() {
 		const {selectedCurrencies} = this.props;
-		const elements = selectedCurrencies.map( (currency) => <CurrencyNews key={currency.id} {...currency} /> );
+		const elements = selectedCurrencies.map( (currency) => {
+			return (<CurrencyNews key={currency.id} truncateTitle={this.truncateTitle} {...currency} />)
+		});
 		return elements
 	}
 
