@@ -4,6 +4,7 @@
 	grid-template-areas:
 		"img data"
 		"name data";
+	padding-right: 1%;
 }
 
 .currency-image-news {
