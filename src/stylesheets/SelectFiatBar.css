@@ -1,5 +1,5 @@
 .option-fiat {
-	justify-self: end;
 	grid-column: 2 / 3;
 	grid-row: 2 / 3;
+	justify-self: end;
 }

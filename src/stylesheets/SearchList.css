@@ -1,8 +1,8 @@
 .search-list-wrapper {
 	position: absolute;
 	top: 105%;
-	left: 5%;
-	right: 5%;
+	left: -10%;
+	right: -10%;
 	z-index: 1;
 	background-color: gray;
 	border: 2px solid black;

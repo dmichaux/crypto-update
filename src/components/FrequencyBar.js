@@ -28,7 +28,6 @@ class FrequencyBar extends React.Component {
 	render() {
 		return (
 			<div className="option-frequency">
-				update every:
 				<button type="button" value="10000" className="frequency-tab"
 								onClick={this.handleClick}>10s</button>
 				<button type="button" value="25000" className="frequency-tab"
