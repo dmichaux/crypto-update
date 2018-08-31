@@ -41,7 +41,7 @@ a {
 
 .grid-news-list {
 	display: grid;
-	grid: repeat(4, 22%) / auto;
-	grid-gap: 3%;
-	height: 70%;
+	grid-template: repeat(4, 1fr) / auto;
+	grid-gap: 2%;
+	height: 68%;
 }
