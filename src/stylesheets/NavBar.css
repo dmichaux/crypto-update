@@ -1,0 +1,19 @@
+.grid-nav {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	grid-template-areas:
+		". value news about .";
+	grid-column-gap: 10px;
+}
+
+.value-tab {
+	grid-area: value;
+}
+
+.news-tab {
+	grid-area: news;
+}
+
+.about-tab {
+	grid-area: about;
+}
