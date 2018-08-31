@@ -83,6 +83,13 @@ class NewsContent extends React.Component {
 		return elements
 	}
 
+	truncateTitle(title) {
+		if (title.length >= 75) {
+			title = title.substring(0, 74) + " ..."
+		}
+		return title
+	}
+
 	// ===== Render
 
 	render() {
@@ -91,13 +98,13 @@ class NewsContent extends React.Component {
 
 		return (
 			<React.Fragment>
-				<div className="top-news">
-					<button type="button" onClick={this.handleClickRefresh} >Refresh News</button>
-					Top News
+				<div className="grid-top-news">
+					<h2 className="top-news-title">Top News</h2>
+					<button type="button" className="btn-refresh" onClick={this.handleClickRefresh}>Refresh</button>
 					{topNews &&
-						<ol>
-							<li><a href={topNews[0].url}>{topNews[0].title}</a></li>
-							<li><a href={topNews[1].url}>{topNews[1].title}</a></li>
+						<ol className="top-news-list">
+							<li><a href={topNews[0].url}>{this.truncateTitle(topNews[0].title)}</a></li>
+							<li><a href={topNews[1].url}>{this.truncateTitle(topNews[1].title)}</a></li>
 						</ol>}
 				</div>
 				<div className="grid-news-list">
