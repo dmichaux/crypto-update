@@ -2,6 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class NavBar extends React.Component {
+
+	static propTypes = {
+		onTabChange: PropTypes.func
+	};
+
 	constructor(props) {
 		super(props);
 		this.handleClick = this.handleClick.bind(this);
@@ -31,10 +36,6 @@ class NavBar extends React.Component {
 			</nav>
 		);
 	}
-}
-
-NavBar.propTypes = {
-	onTabChange: PropTypes.func
 }
 
 export default NavBar;

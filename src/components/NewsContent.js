@@ -7,6 +7,13 @@ import NewsAPI from '../SDKs/CryptoNewsAPI';
 import CurrencyNews from './CurrencyNews';
 
 class NewsContent extends React.Component {
+
+	static propTypes = {
+		selectedCurrencies: PropTypes.arrayOf(PropTypes.object),
+		fetchCurrencyNews: PropTypes.func,
+		setNewsState: PropTypes.func,
+	};
+
 	constructor(props) {
 		super(props);
 		this.handleClickRefresh = this.handleClickRefresh.bind(this);
@@ -100,11 +107,5 @@ class NewsContent extends React.Component {
 		);
 	}
 }
-
-NewsContent.propTypes = {
-	selectedCurrencies: PropTypes.arrayOf(PropTypes.object),
-	fetchCurrencyNews: PropTypes.func,
-	setNewsState: PropTypes.func,
-};
 
 export default NewsContent;

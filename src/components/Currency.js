@@ -3,6 +3,15 @@ import PropTypes from 'prop-types';
 import '../stylesheets/Currency.css';
 
 class Currency extends React.Component {
+
+	static propTypes = {
+		fiatExchange: PropTypes.string,
+		name: PropTypes.string,
+		id: PropTypes.string,
+		imgURL: PropTypes.string,
+		rate: PropTypes.object
+	};
+
 	convertRate(rate) {
 		return (1 / rate)
 	}
@@ -50,13 +59,5 @@ class Currency extends React.Component {
 		);
 	}
 }
-
-Currency.propTypes = {
-	fiatExchange: PropTypes.string,
-	name: PropTypes.string,
-	id: PropTypes.string,
-	imgURL: PropTypes.string,
-	rate: PropTypes.object
-};
 
 export default Currency;

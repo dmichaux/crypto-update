@@ -3,6 +3,11 @@ import PropTypes from 'prop-types';
 import '../stylesheets/FrequencyBar.css';
 
 class FrequencyBar extends React.Component {
+
+	static propTypes = {
+		onFrequencyChange: PropTypes.func,
+	};
+
 	constructor(props) {
 		super(props);
 		this.handleClick = this.handleClick.bind(this);
@@ -34,9 +39,5 @@ class FrequencyBar extends React.Component {
 		);
 	}
 }
-
-FrequencyBar.propTypes = {
-	onFrequencyChange: PropTypes.func,
-};
 
 export default FrequencyBar;

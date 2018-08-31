@@ -5,6 +5,12 @@ import '../stylesheets/SelectBar.css';
 import SearchList from './SearchList'
 
 class SelectBar extends React.Component {
+
+	static propTypes = {
+		currencyListMaster: PropTypes.arrayOf(PropTypes.object),
+		selectedCurrencies: PropTypes.arrayOf(PropTypes.object),
+	};
+
 	constructor(props) {
 		super(props);
 		this.handleFocus = this.handleFocus.bind(this);
@@ -95,10 +101,5 @@ class SelectBar extends React.Component {
 		);
 	}
 }
-
-SelectBar.propTypes = {
-	currencyListMaster: PropTypes.arrayOf(PropTypes.object),
-	selectedCurrencies: PropTypes.arrayOf(PropTypes.object),
-};
 
 export default SelectBar;

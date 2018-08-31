@@ -6,6 +6,12 @@ import CurrencyContext from '../contexts/CurrencyContext';
 
 class SearchList extends React.Component {
 
+	static propTypes = {
+		filteredList: PropTypes.arrayOf(PropTypes.object),
+		selectedNum: PropTypes.number,
+		handleDoneClick: PropTypes.func,
+	};
+
 	// ===== Internals
 
 	// Takes array of objects, returns array of button elements
@@ -54,11 +60,5 @@ class SearchList extends React.Component {
 		);
 	}
 }
-
-SearchList.propTypes = {
-	filteredList: PropTypes.arrayOf(PropTypes.object),
-	selectedNum: PropTypes.number,
-	handleDoneClick: PropTypes.func,
-};
 
 export default SearchList;

@@ -3,6 +3,12 @@ import PropTypes from 'prop-types';
 import '../stylesheets/SelectFiatBar.css';
 
 class SelectFiatBar extends React.Component {
+
+	static propTypes = {
+		fiatChange: PropTypes.func,
+		fiatExchange: PropTypes.string,
+	};
+
 	constructor(props) {
 		super(props);
 		this.handleClick = this.handleClick.bind(this);
@@ -30,10 +36,5 @@ class SelectFiatBar extends React.Component {
 		);
 	}
 }
-
-SelectFiatBar.propTypes = {
-	fiatChange: PropTypes.func,
-	fiatExchange: PropTypes.string,
-};
 
 export default SelectFiatBar;

@@ -13,6 +13,11 @@ import NewsContent from './NewsContent';
 import AboutContent from './AboutContent';
 
 class ContentPane extends React.Component {
+
+	static propTypes = {
+		tabNum: PropTypes.number
+	};
+
 	constructor (props) {
 		super(props);
 		this.handleCurrencyChange = this.handleCurrencyChange.bind(this);
@@ -236,9 +241,5 @@ class ContentPane extends React.Component {
 		);
 	}
 }
-
-ContentPane.propTypes = {
-	tabNum: PropTypes.number
-};
 
 export default ContentPane

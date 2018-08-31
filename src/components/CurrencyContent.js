@@ -5,6 +5,14 @@ import '../stylesheets/CurrencyContent.css';
 import Currency from './Currency';
 
 class CurrencyContent extends React.Component {
+
+	static propTypes = {
+		selectedCurrencies: PropTypes.arrayOf(PropTypes.object),
+		fiatExchange: PropTypes.string,
+		frequency: PropTypes.number,
+		processValues: PropTypes.func,
+	};
+
 	constructor(props) {
 		super(props);
 		this.state = { timerID: null };
@@ -67,12 +75,5 @@ class CurrencyContent extends React.Component {
 		);
 	}
 }
-
-CurrencyContent.propTypes = {
-	selectedCurrencies: PropTypes.arrayOf(PropTypes.object),
-	fiatExchange: PropTypes.string,
-	frequency: PropTypes.number,
-	processValues: PropTypes.func,
-};
 
 export default CurrencyContent;
