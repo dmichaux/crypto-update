@@ -16,6 +16,7 @@
 
 .currency-name {
 	grid-area: name;
+	align-self: end;
 }
 
 .currency-rates {

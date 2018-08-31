@@ -8,14 +8,14 @@
 
 .currency-image-news {
 	grid-area: img;
-	place-self: center;
+	place-self: end center;
 	width: 50%;
 	height: auto;
 }
 
 .news-name {
 	grid-area: name;
-	place-self: center;
+	place-self: start center;
 }
 
 .news-data {
