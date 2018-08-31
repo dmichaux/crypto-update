@@ -9,8 +9,8 @@
 .currency-image-news {
 	grid-area: img;
 	place-self: center;
-	width: 40px;
-	height: 40px;
+	width: 50%;
+	height: auto;
 }
 
 .news-name {
