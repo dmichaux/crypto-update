@@ -3,6 +3,12 @@ html, body, #root {
 	height: 100%;
 }
 
+body {
+	font-family: sans-serif;
+	color: white;
+	background-color: blue;
+}
+
 .selected-tab {
 	border-bottom: 2px solid red;
 }
