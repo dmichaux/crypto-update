@@ -83,7 +83,7 @@ class NewsContent extends React.Component {
 		const newsElements = this.currenciesToElements()
 
 		return (
-			<div className="news-content-wrapper">
+			<React.Fragment>
 				<div className="top-news">
 					<button type="button" onClick={this.handleClickRefresh} >Refresh News</button>
 					Top News
@@ -96,7 +96,7 @@ class NewsContent extends React.Component {
 				<div className="grid-news-list">
 					{newsElements}
 				</div>
-			</div>
+			</React.Fragment>
 		);
 	}
 }
