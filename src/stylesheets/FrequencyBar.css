@@ -1,3 +1,4 @@
 .option-frequency {
-	grid-area: frequency;
+	grid-column: 1 / 2;
+	grid-row: 2 / 3;
 }
