@@ -12,3 +12,9 @@ body {
 .selected-currency {
 	color: blue;
 }
+
+/* Removes focus outline unless user is tabbing. See note in index.js */
+body:not(.accessible-tabbing) button:focus,
+body:not(.accessible-tabbing) input:focus {
+	outline: none;
+}
