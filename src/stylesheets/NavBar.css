@@ -2,8 +2,13 @@
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
 	grid-template-areas:
-		". value news about .";
-	grid-column-gap: 10px;
+		"hrl value news about hrr";
+	grid-column-gap: 5px;
+}
+
+hr {
+	width: 80%;
+	margin: auto;
 }
 
 .value-tab {
@@ -16,4 +21,12 @@
 
 .about-tab {
 	grid-area: about;
+}
+
+.hr-left {
+	grid-area: hrl;
+}
+
+.hr-right {
+	grid-area: hrr;
 }
