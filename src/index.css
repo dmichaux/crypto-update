@@ -9,10 +9,6 @@ body {
 	background-color: blue;
 }
 
-.selected-tab {
-	border-bottom: 2px solid red;
-}
-
 .selected-currency {
 	color: blue;
 }

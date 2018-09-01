@@ -11,6 +11,14 @@ hr {
 	margin: auto;
 }
 
+.hr-left {
+	grid-area: hrl;
+}
+
+.hr-right {
+	grid-area: hrr;
+}
+
 .value-tab {
 	grid-area: value;
 }
@@ -23,10 +31,6 @@ hr {
 	grid-area: about;
 }
 
-.hr-left {
-	grid-area: hrl;
-}
-
-.hr-right {
-	grid-area: hrr;
+.selected-tab {
+	border-bottom: 2px solid red;
 }
