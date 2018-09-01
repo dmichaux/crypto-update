@@ -3,7 +3,6 @@
 	grid-template-columns: repeat(5, 1fr);
 	grid-template-areas:
 		"hrl value news about hrr";
-	grid-column-gap: 5px;
 }
 
 hr {
@@ -17,6 +16,13 @@ hr {
 
 .hr-right {
 	grid-area: hrr;
+}
+
+.nav-tab {
+	padding: 0;
+	color: lightgray;
+	background-color: inherit;
+	border: none;
 }
 
 .value-tab {
