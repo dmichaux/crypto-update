@@ -105,8 +105,8 @@ class NewsContent extends React.Component {
 					<button type="button" className="btn-refresh" onClick={this.handleClickRefresh}>Refresh</button>
 					{topNews &&
 						<ol className="top-news-list">
-							<li><a href={topNews[0].url}>{this.truncateTitle(topNews[0].title, 75)}</a></li>
-							<li><a href={topNews[1].url}>{this.truncateTitle(topNews[1].title, 75)}</a></li>
+							<li><a href={topNews[0].url}>{this.truncateTitle(topNews[0].title, 65)}</a></li>
+							<li><a href={topNews[1].url}>{this.truncateTitle(topNews[1].title, 65)}</a></li>
 						</ol>}
 				</div>
 				<div className="grid-news-list">
