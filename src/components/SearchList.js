@@ -46,11 +46,11 @@ class SearchList extends React.Component {
 						return (
 							<div className="search-list-wrapper">
 								<div className="grid-container-selected">
+									<button type="button" className="grid-item-done" onClick={handleDoneClick}>x</button>
 									{none_selected || this.listToButtons(selected, handler, ' selected-currency')}
 								</div>
 								<div className="grid-container-filtered">
-									<span className="grid-item-num">{filteredNum} Currencies</span>
-									<button type="button" className="grid-item-done" onClick={handleDoneClick}>x</button>
+									{/* <span className="grid-item-num">{filteredNum} Currencies</span> */}
 									{loading || maxedOut || this.listToButtons(topTwelve, handler)}
 								</div>
 							</div>
