@@ -19,3 +19,7 @@
 	text-align: center;
 	color: black;
 }
+
+.news-data p {
+	margin: 0;
+}
