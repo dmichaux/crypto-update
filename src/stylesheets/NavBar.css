@@ -19,10 +19,13 @@ hr {
 }
 
 .nav-tab {
-	padding: 0;
+	padding: 0 0 4px 0;
+	height: 20px;
 	color: lightgray;
+	font-size: 16px;
 	background-color: inherit;
 	border: none;
+	/*box-sizing: content-box;*/
 }
 
 .value-tab {
@@ -38,5 +41,6 @@ hr {
 }
 
 .selected-tab {
+	color: white;
 	border-bottom: 2px solid red;
 }
