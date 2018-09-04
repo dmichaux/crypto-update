@@ -9,6 +9,10 @@ body {
 	background-color: blue;
 }
 
+#root {
+	position: relative;
+}
+
 .selected-currency {
 	color: blue;
 }
@@ -17,4 +21,9 @@ body {
 body:not(.accessible-tabbing) button:focus,
 body:not(.accessible-tabbing) input:focus {
 	outline: none;
+}
+
+/* Clears the lower navigation bar some mobile browsers add */
+.has-browser-bar {
+	height: calc(100% - 50px);
 }
