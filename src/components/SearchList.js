@@ -46,7 +46,6 @@ class SearchList extends React.Component {
 						return (
 							<div className="search-list-wrapper">
 								<div className="grid-container-selected">
-									<span className="grid-item-num">{selectedNum} of 4</span>
 									{none_selected || this.listToButtons(selected, handler, ' selected-currency')}
 								</div>
 								<div className="grid-container-filtered">

@@ -12,13 +12,9 @@
 
 .grid-container-selected {
 	display: grid;
-	grid-template-columns: 1fr, 2fr, 2fr;
-	grid-template-rows: 1fr, 1fr;
+	grid-template: 1fr 2fr / repeat(4, 1fr);
 	grid-gap: 5px;
-	grid-template-areas:
-		"num . ."
-		"num . .";
-	margin: 16px 8px;
+	margin: 2%;
 }
 
 .grid-container-filtered {
@@ -31,7 +27,10 @@
 }
 
 .selected-currency {
+	grid-row-start: 2;
 	grid-auto-flow: column;
+	font-size: 12px;
+	padding: 0;
 }
 
 .grid-item-num {
