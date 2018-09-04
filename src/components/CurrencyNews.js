@@ -18,7 +18,7 @@ const CurrencyNews = (props) => {
 			element = <p>{news.title}</p>;
 			break;
 		default:
-			element = <a href={news.url}>{truncateTitle(news.title)}</a>;
+			element = <a href={news.url}>{truncateTitle(news.title, 40)}</a>;
 	}
 
 	return (
