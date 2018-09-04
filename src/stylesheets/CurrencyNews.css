@@ -1,25 +1,21 @@
 .grid-container-news {
 	display: grid;
-	grid: 2fr 1fr / 1fr 3fr;
+	grid-template-columns: 1fr 3fr;
 	grid-template-areas:
-		"img data"
-		"name data";
+		"img data";
 	padding-right: 1%;
 }
 
 .currency-image-news {
 	grid-area: img;
-	place-self: end center;
+	place-self: center;
 	width: 50%;
 	height: auto;
-}
-
-.news-name {
-	grid-area: name;
-	place-self: start center;
 }
 
 .news-data {
 	grid-area: data;
 	place-self: center;
+	text-align: center;
+	color: black;
 }
