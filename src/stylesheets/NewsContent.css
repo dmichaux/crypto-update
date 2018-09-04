@@ -1,6 +1,7 @@
 .grid-top-news {
 	height: 125px;
 	margin: 0 2%;
+	padding: 2% 0;
 	display: grid;
 	grid-template: 1fr 2fr / repeat(3, 1fr);
 	grid-template-areas:
@@ -9,6 +10,7 @@
 	background-color: white;
 	border-top-left-radius: 5%;
 	border-top-right-radius: 5%;
+	box-sizing: border-box;
 }
 
 .btn-refresh {
@@ -32,7 +34,7 @@ a {
 
 .top-news-list {
 	grid-area: list;
-	place-self: center;
+	place-self: start center;
 	padding: 0;
 	margin: 0;
 	list-style: none;
@@ -51,6 +53,7 @@ a {
 	grid-template: repeat(4, 1fr) / auto;
 	grid-gap: 2%;
 	margin: 0 2%;
+	padding-bottom: 2%;
 	background-color: white;
 	border-bottom-left-radius: 5%;
 	border-bottom-right-radius: 5%;
