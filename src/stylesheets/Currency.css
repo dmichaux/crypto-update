@@ -16,7 +16,7 @@
 .currency-image {
 	grid-area: img;
 	place-self: center;
-	width: 70%;
+	width: 50%;
 	height: auto;
 }
 
