@@ -24,6 +24,6 @@ body:not(.accessible-tabbing) input:focus {
 }
 
 /* Clears the lower navigation bar some mobile browsers add */
-.has-browser-bar {
+/*.has-browser-bar {
 	height: calc(100% - 50px);
-}
+}*/
