@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import UserChecks from './userChecks'
+import UserChecks from './UserChecks'
 import './index.css';
 
 import App from './components/App';
