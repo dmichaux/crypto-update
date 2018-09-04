@@ -12,9 +12,23 @@
 
 .grid-container-selected {
 	display: grid;
-	grid-template: 1fr 2fr / repeat(4, 1fr);
+	grid-template: 1fr 1fr / repeat(4, 1fr);
 	grid-gap: 5px;
 	margin: 2%;
+}
+
+.grid-item-done {
+	grid-column-start: 4;
+	place-self: start end;
+	/*padding: 2px 5px;*/
+	border-radius: 50%;
+}
+
+.selected-currency {
+	grid-row-start: 2;
+	grid-auto-flow: column;
+	font-size: 12px;
+	padding: 0;
 }
 
 .grid-container-filtered {
@@ -26,26 +40,12 @@
 	margin: 16px 8px;
 }
 
-.selected-currency {
-	grid-row-start: 2;
-	grid-auto-flow: column;
-	font-size: 12px;
-	padding: 0;
-}
-
 .grid-item-num {
 	grid-area: num;
 	place-self: center;
 	margin-top: 16px;
 	margin-bottom: 16px;
 	margin-left: 8px;
-}
-
-.grid-item-done {
-	grid-area: done;
-	place-self: start end;
-	padding: 2px 5px;
-	border-radius: 50%;
 }
 
 .loading, .maxed-out {
