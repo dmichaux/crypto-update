@@ -7,7 +7,7 @@ import NavBar from './NavBar'
 const Header = (props) => {
 	return (
 		<header>
-			<h1>Crypto Update</h1>
+			<h1>crypto update</h1>
 			<NavBar onTabChange={props.onTabChange} />
 		</header>
 	);
