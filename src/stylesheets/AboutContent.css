@@ -1,0 +1,19 @@
+.grid-about {
+	display: grid;
+	position: absolute;
+	top: -50px;
+	margin-bottom: 4%;
+	padding: 0 4%;
+	background-color: lightgray;
+	border: 2px solid darkgray;
+	text-align: justify;
+	color: black;
+}
+
+h2 {
+	text-align: center;
+}
+
+.credits {
+	text-align: left;
+}
