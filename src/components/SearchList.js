@@ -18,7 +18,7 @@ class SearchList extends React.Component {
 	listToButtons(list, handler, addedClass="") {
 		const buttons = list.map( (item) => {
 			return ( <button key={item.id} type="button"
-												value={JSON.stringify(item)} className={"grid-item" + addedClass}
+												value={JSON.stringify(item)} className={"btn grid-item" + addedClass}
 												onClick={handler}>{item.name}</button> )
 		});
 		return buttons
@@ -45,7 +45,7 @@ class SearchList extends React.Component {
 						return (
 							<div className="search-list-wrapper">
 								<div className="grid-container-selected">
-									<button type="button" className="grid-item-done" onClick={handleDoneClick}>x</button>
+									<button type="button" className="btn grid-item-done" onClick={handleDoneClick}>x</button>
 									{this.listToButtons(selected, handler, ' selected-currency')}
 								</div>
 								<hr className="hr-select"/>
