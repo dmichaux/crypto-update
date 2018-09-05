@@ -4,10 +4,17 @@
 	left: -10%;
 	right: -10%;
 	z-index: 1;
-	background-color: lightgray;
+	background-color: cornflowerblue;
 	color: black;
 	border: 1px solid black;
 	border-radius: 5%;
+}
+
+.btn {
+	background-color: inherit;
+	color: lightgray;
+	border: none;
+	font-weight: bold;
 }
 
 .grid-container-selected {
@@ -21,24 +28,27 @@
 .grid-item-done {
 	grid-column-start: 4;
 	place-self: start end;
-	border-radius: 50%;
+	background-color: inherit;
+	border: none;
+	color: red;
 }
 
 .selected-currency {
 	grid-row-start: 2;
 	grid-auto-flow: column;
-	font-size: 12px;
+	font-size: 14px;
+	color: white;
 	padding: 0;
 }
 
 .hr-select {
-	border-color: black;
+	border-color: darkgray;
 }
 
 .grid-container-filtered {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	grid-gap: 5px;
+	grid-gap: 10px 5px;
 	margin: 2%;
 	margin-top: 3%;
 }
