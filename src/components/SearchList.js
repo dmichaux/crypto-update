@@ -32,7 +32,6 @@ class SearchList extends React.Component {
 		
 		const filteredNum = filteredList.length;
 		const loading = filteredNum ? false : <span className="loading">loading 2500+ currencies</span>
-		const none_selected = selectedNum ? false : <span className="none-selected">Get started...</span>
 		const maxedOut = selectedNum >= 4 ?
 			<span className="maxed-out">max currencies selected<br />remove a selection to add a new one</span>
 			: false
@@ -47,10 +46,9 @@ class SearchList extends React.Component {
 							<div className="search-list-wrapper">
 								<div className="grid-container-selected">
 									<button type="button" className="grid-item-done" onClick={handleDoneClick}>x</button>
-									{none_selected || this.listToButtons(selected, handler, ' selected-currency')}
+									{this.listToButtons(selected, handler, ' selected-currency')}
 								</div>
 								<div className="grid-container-filtered">
-									{/* <span className="grid-item-num">{filteredNum} Currencies</span> */}
 									{loading || maxedOut || this.listToButtons(topTwelve, handler)}
 								</div>
 							</div>
