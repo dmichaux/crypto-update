@@ -31,6 +31,10 @@
 	padding: 0;
 }
 
+.hr-select {
+	border-color: black;
+}
+
 .grid-container-filtered {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
