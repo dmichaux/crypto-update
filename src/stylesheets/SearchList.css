@@ -15,12 +15,12 @@
 	grid-template: 1fr 1fr / repeat(4, 1fr);
 	grid-gap: 5px;
 	margin: 2%;
+	margin-bottom: 3%;
 }
 
 .grid-item-done {
 	grid-column-start: 4;
 	place-self: start end;
-	/*padding: 2px 5px;*/
 	border-radius: 50%;
 }
 
@@ -41,7 +41,8 @@
 	grid-gap: 5px;
 	grid-template-areas:
 		"num num done";
-	margin: 16px 8px;
+	margin: 2%;
+	margin-top: 3%;
 }
 
 .grid-item-num {
