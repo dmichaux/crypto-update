@@ -48,6 +48,7 @@ class SearchList extends React.Component {
 									<button type="button" className="grid-item-done" onClick={handleDoneClick}>x</button>
 									{this.listToButtons(selected, handler, ' selected-currency')}
 								</div>
+								<hr />
 								<div className="grid-container-filtered">
 									{loading || maxedOut || this.listToButtons(topTwelve, handler)}
 								</div>
