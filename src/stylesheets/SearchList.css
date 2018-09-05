@@ -6,8 +6,9 @@
 	z-index: 1;
 	background-color: cornflowerblue;
 	color: black;
-	border: 1px solid black;
-	border-radius: 5%;
+	border: 1px solid darkgray;
+	/*border-style: outset;*/
+	box-shadow: inset;
 }
 
 .btn {
@@ -28,9 +29,10 @@
 .grid-item-done {
 	grid-column-start: 4;
 	place-self: start end;
-	background-color: inherit;
+	background-color: rgba(255, 0, 0, 0.7);
+	border-radius: 50%;
 	border: none;
-	color: red;
+	color: white;
 }
 
 .selected-currency {
