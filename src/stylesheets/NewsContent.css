@@ -1,6 +1,5 @@
 .grid-top-news {
 	height: 125px;
-	/*margin: 0 2%;*/
 	padding: 2% 0;
 	display: grid;
 	grid-template: 1fr 2fr / repeat(3, 1fr);
@@ -52,7 +51,6 @@ a {
 	display: grid;
 	grid-template: repeat(4, 1fr) / auto;
 	grid-gap: 2%;
-	/*margin: 0 2%;*/
 	padding-bottom: 2%;
 	background-color: white;
 	border-bottom-left-radius: 5%;
