@@ -1,4 +1,5 @@
 import React from 'react';
+import '../stylesheets/AboutContent.css';
 
 const AboutContent = () => {
 	const aboutApp = <p>Finding the exchange rates you care about can be dizzying in the crypto world of information overload. Crypto Update keeps you ahead with live prices and news, personalized for just what you want.<br />Go ahead - get udpated.</p>;
@@ -10,19 +11,19 @@ const AboutContent = () => {
 	const credits = <p>Crypto Update uses {linkCCompare} for all market data and {"CryptoControl's"} {linkCNews} for the latest and greatest news.</p>;
 
 	return (
-		<React.Fragment>
-			<div>
+		<div className="grid-about">
+			<div className="about">
 				{aboutApp}
 			</div>
-			<div>
+			<div className="note">
 				<h2>A Note on Cryptocurrencies</h2>
 				{noteOnCCs}
 			</div>
-			<div>
+			<div className="credits">
 				<h2>Credits</h2>
 				{credits}
 			</div>
-		</React.Fragment>
+		</div>
 	);
 }
 
